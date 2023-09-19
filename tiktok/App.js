@@ -4,9 +4,7 @@ import Constants from "expo-constants";
 import { initializeApp } from "firebase/app";
 import firebaseSecret from "./secrets.json";
 
-console.log(firebaseSecret);
-
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseSecret);
 
 export default function App() {
   return (
