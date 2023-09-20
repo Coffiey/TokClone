@@ -4,20 +4,23 @@ import Constants from "expo-constants";
 import { initializeApp } from "firebase/app";
 import firebaseSecret from "./secrets.json";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux-thunk";
+import { applyMiddleware } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-import rootReducer from "./src/redux/reducers/index.js";
-
+import Reducers from "./src/redux/reducers/index.js";
+import AuthScreen from "./src/screens/auth";
 const app = initializeApp(firebaseSecret);
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = configureStore({
+  reducer: Reducers,
+  middleware: [thunk],
+});
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app! refresh test</Text>
-      <StatusBar style='auto' />
-    </View>
+    <Provider store={store}>
+      <AuthScreen />
+    </Provider>
   );
 }
 
