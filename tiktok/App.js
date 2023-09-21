@@ -11,6 +11,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import Reducers from "./src/redux/reducers/index.js";
 import AuthScreen from "./src/screens/auth";
+import Route from "./src/navigation/main";
 
 const app = initializeApp(firebaseSecret);
 const firestore = getFirestore(app);
@@ -25,16 +26,16 @@ const store = configureStore({
 export default function App() {
   return (
     <Provider store={store}>
-      <AuthScreen />
+      <Route />
     </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#fff",
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+// });
