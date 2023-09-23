@@ -9,11 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.19.3",
     "@react-navigation/material-bottom-tabs": "^6.2.16",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "@reduxjs/toolkit": "^1.9.5",
     "expo": "~49.0.11",
+    "expo-camera": "~13.4.4",
     "expo-constants": "~14.4.2",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.4.0",
@@ -27,7 +29,10 @@
     "react-redux": "^8.1.2",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
-    "thunk": "^0.0.1"
+    "thunk": "^0.0.1",
+    "expo-image-picker": "~14.3.2",
+    "expo-media-library": "~15.4.1",
+    "expo-av": "~13.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

@@ -13,32 +13,31 @@ export default function Route() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userAuthStateListner());
-    console.log(currentUserObj);
   }, []);
 
   if (!currentUserObj.loaded) {
     return (
       <View>
-        <Text>No User Loaded</Text>
+        <Text>Loading</Text>
       </View>
     );
   }
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {currentUserObj.currentUser == null ? (
+        {/* {currentUserObj.currentUser ? ( */}
+        <Stack.Screen
+          name='auth'
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        {/* ) : (
           <Stack.Screen
             name='auth'
             component={AuthScreen}
             options={{ headerShown: false }}
           />
-        ) : (
-          <Stack.Screen
-            name='auth'
-            component={HomeScreen}
-            options={{ headerShown: false }}
-          />
-        )}
+        )} */}
       </Stack.Navigator>
     </NavigationContainer>
   );
