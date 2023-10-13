@@ -25,19 +25,19 @@ export default function Route() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* {currentUserObj.currentUser ? ( */}
-        <Stack.Screen
-          name='auth'
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
-        {/* ) : (
+        {currentUserObj.currentUser ? (
+          <Stack.Screen
+            name='auth'
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+        ) : (
           <Stack.Screen
             name='auth'
             component={AuthScreen}
             options={{ headerShown: false }}
           />
-        )} */}
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
