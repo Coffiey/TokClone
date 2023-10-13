@@ -32,10 +32,7 @@ export default function CameraScreen() {
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       setHasGalleryPermissions(cameraStatus.status == "granted");
 
-      const videoStatus = await ImagePicker;
-
       if (galleryStatus.status === "granted") {
-        console.log(galleryStatus);
         try {
           const userGalleryMedia = await MediaLibrary.getAssetsAsync({
             sortBy: "creationTime",
@@ -63,6 +60,7 @@ export default function CameraScreen() {
         if (videoRecordPromise) {
           const data = await videoRecordPromise();
           const sourse = data.uri;
+          // more todo
         }
       } catch (err) {
         console.warn(err);
@@ -86,7 +84,16 @@ export default function CameraScreen() {
   }
 
   const pickFromGallery = async () => {
-    let results = await ImagePicker.launchImageLibraryAsync();
+    let results = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+      allowsEditing: true,
+      quality: 1,
+      aspect: [16, 9],
+    });
+    if (!result.canceled) {
+      console.log(result.uri);
+      //todo
+    }
   };
 
   return (
@@ -111,17 +118,19 @@ export default function CameraScreen() {
           />
         </View>
         <View style={styles.galleryButtonContainer}>
-          <TouchableOpacity
-            style={styles.galleryButton}
-            onPress={() => pickFromGallery()}
-          >
-            {galleryItems.length && (
-              <Image
-                style={styles.galleryButtonImage}
-                source={{ uri: galleryItems[0].uri }}
-              />
-            )}
-          </TouchableOpacity>
+          {galleryItems.length !== 0 && (
+            <TouchableOpacity
+              style={styles.galleryButton}
+              onPress={() => pickFromGallery()}
+            >
+              {galleryItems.length && (
+                <Image
+                  style={styles.galleryButtonImage}
+                  source={{ uri: galleryItems[0].uri }}
+                />
+              )}
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>

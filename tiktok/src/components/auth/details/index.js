@@ -13,6 +13,7 @@ export default function AuthDetails(props) {
 
   const dispatch = useDispatch();
   const handleLogin = () => {
+    console.log("clicked");
     dispatch(login(email, password))
       .then(() => {
         console.log("Log In Successful");
@@ -23,6 +24,7 @@ export default function AuthDetails(props) {
   };
 
   const handleRegister = () => {
+    console.log("clicked");
     dispatch(register(email, password))
       .then(() => {
         console.log("Registration Successful");
