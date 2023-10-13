@@ -5,6 +5,7 @@ import { Audio } from "expo-av";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
 import { useIsFocused } from "@react-navigation/native";
+import { Feather } from "@expo/vector-icons";
 import styles from "./styles";
 
 export default function CameraScreen() {
@@ -108,6 +109,44 @@ export default function CameraScreen() {
           onCameraReady={() => setIsCameraReady(true)}
         />
       )}
+      <View style={styles.sideBarContainer}>
+        <TouchableOpacity
+          style={styles.sideBarButton}
+          onPress={() =>
+            setCameraType(
+              cameraType === Camera.Constants.Type.back
+                ? Camera.Constants.Type.front
+                : Camera.Constants.Type.back
+            )
+          }
+        >
+          <Feather
+            name='refresh-ccw'
+            size={24}
+            color={"white"}
+          />
+          <Text style={styles.iconText}>Flip</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.sideBarButton}
+          onPress={() =>
+            setCameraFlash(
+              cameraFlash === Camera.Constants.FlashMode.off
+                ? Camera.Constants.FlashMode.torch
+                : Camera.Constants.FlashMode.off
+            )
+          }
+        >
+          <Feather
+            name={
+              cameraFlash === Camera.Constants.FlashMode.off ? "zap-off" : "zap"
+            }
+            size={24}
+            color={"white"}
+          />
+          <Text style={styles.iconText}>Flash</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.bottomBar}>
         <View stlye={styles.recordButtonContainer}>
           <TouchableOpacity

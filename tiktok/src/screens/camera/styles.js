@@ -50,6 +50,21 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
+  sideBarContainer: {
+    top: 60,
+    right: 0,
+    marginHorizontal: 20,
+    position: "absolute",
+  },
+  iconText: {
+    color: "white",
+    fontSize: 12,
+    marginTop: 5,
+  },
+  sideBarButton: {
+    alignItems: "center",
+    marginBottom: 25,
+  },
 });
 
 export default styles;
