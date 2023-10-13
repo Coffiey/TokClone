@@ -32,6 +32,8 @@ export default function CameraScreen() {
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       setHasGalleryPermissions(cameraStatus.status == "granted");
 
+      const videoStatus = await ImagePicker;
+
       if (galleryStatus.status === "granted") {
         console.log(galleryStatus);
         try {
