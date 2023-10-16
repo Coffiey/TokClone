@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { auth, firestore } from "../../../App";
 import { CURRENT_USER_POSTS_UPDATE, USER_STATE_CHANGE } from "../constants";
-import { saveMediaToStorage } from "./misc";
+import { saveMediaToStorage } from "../../services/misc";
 import uuid from "uuid-random";
 
 export const createPost = (description, video, thumbnail) => (dispatch) =>

@@ -12,7 +12,7 @@ export default function ProfileNavBar({ user }) {
           size={20}
         />
       </TouchableOpacity>
-      <Text style={styles.text}>{user.displayName || "Coffiey"}</Text>
+      <Text style={styles.text}>{user.displayName || user.email}</Text>
       <TouchableOpacity>
         <Feather
           name='menu'

@@ -7,6 +7,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SavePostScreen from "../../screens/savePost";
 import AuthScreen from "../../screens/auth";
 import HomeScreen from "../home";
+import EditPorfileScreen from "../../screens/profile/edit";
+import EditProfileFieldScreen from "../../screens/profile/edit/field";
 
 export default function Route() {
   const Stack = createNativeStackNavigator();
@@ -36,6 +38,16 @@ export default function Route() {
             <Stack.Screen
               name='SavePost'
               component={SavePostScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name='editProfile'
+              component={EditPorfileScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name='editProfileField'
+              component={EditProfileFieldScreen}
               options={{ headerShown: false }}
             />
           </>
