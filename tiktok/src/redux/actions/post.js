@@ -55,12 +55,14 @@ export const getPostsByUser =
         where("creator", "==", uid),
         orderBy("creation", "desc")
       );
-      getDocs(dataQuery).then((dataArray) => {
-        const data = dataArray.docs.map((doc) => {
-          const data = doc.data();
-          const id = doc.id;
-          return { id, ...data };
-        });
-        dispatch({ type: CURRENT_USER_POSTS_UPDATE, currentUserPosts: data });
-      });
+      getDocs(dataQuery)
+        .then((dataArray) => {
+          const data = dataArray.docs.map((doc) => {
+            const data = doc.data();
+            const id = doc.id;
+            return { id, ...data };
+          });
+          dispatch({ type: CURRENT_USER_POSTS_UPDATE, currentUserPosts: data });
+        })
+        .catch(() => reject());
     });

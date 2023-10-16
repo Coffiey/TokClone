@@ -11,5 +11,15 @@ export const saveUserProfileImage = (image) =>
         })
       )
       .then(() => resolve())
-      .catch(reject());
+      .catch(() => reject());
+  });
+
+export const saveUserField = (field, value) =>
+  new Promise((resolve, reject) => {
+    const obj = {};
+    obj[field] = value;
+    updateDoc(doc(firestore, "user", auth.currentUser.uid), obj)
+      .then(() => (item = false))
+      .then(() => resolve())
+      .catch(() => reject());
   });

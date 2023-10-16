@@ -4,7 +4,6 @@ import styles from "./stlyes";
 import ProfilePostListItem from "./item";
 
 export default function ProfilePostList({ posts }) {
-  console.log(posts);
   return (
     <View style={styles.container}>
       <FlatList

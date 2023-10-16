@@ -59,7 +59,6 @@ export default function CameraScreen() {
           maxDuration: 20,
           quality: Camera.Constants.VideoQuality["480"],
         };
-        console.log(ref._cameraHandle);
         const videoRecordPromise = ref.recordAsync(options);
         if (videoRecordPromise) {
           const data = await videoRecordPromise;
@@ -80,7 +79,6 @@ export default function CameraScreen() {
   };
 
   if (!hasCameraPermissions || !hasAudioPermissions || !hasGalleryPermissions) {
-    console.log(hasAudioPermissions);
     return (
       <View style={{ marginTop: 30 }}>
         <Text>NO PERMISISONS</Text>
@@ -93,7 +91,6 @@ export default function CameraScreen() {
       const { uri } = await VideoThumbnails.getThumbnailAsync(source, {
         time: 1000,
       });
-      console.log(source);
       return uri;
     } catch (e) {
       console.warn("😎", e);

@@ -9,7 +9,6 @@ import { createPost } from "../../redux/actions";
 import { ActivityIndicator } from "react-native-paper";
 
 export default function SavePostScreen(props) {
-  //   console.log(props.route.params.source);
   const navigation = useNavigation();
   const [description, setDescription] = useState("");
   const [requestRunning, setRequestRunning] = useState(false);

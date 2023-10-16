@@ -58,7 +58,7 @@ export default function EditPorfileScreen() {
         >
           <Text>Dsplay Name</Text>
           <View style={styles.fieldsValueContainer}>
-            <Text>Display Name</Text>
+            <Text>{auth.currentUser.displayName || "Add a Name"}</Text>
             <Feather
               name='chevron-right'
               size={20}
