@@ -4,7 +4,8 @@ import { Camera } from "expo-camera";
 import { Audio } from "expo-av";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
-import { useIsFocused } from "@react-navigation/native";
+import * as VideoThumbnails from "expo-video-thumbnails";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import styles from "./styles";
 
@@ -21,6 +22,8 @@ export default function CameraScreen() {
   );
   const [isCameraReady, setIsCameraReady] = useState();
   const isFocused = useIsFocused();
+
+  const navigation = useNavigation();
   useEffect(() => {
     const permisions = async () => {
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
@@ -40,7 +43,6 @@ export default function CameraScreen() {
             mediaType: "photo",
           });
           setGalleryItem(userGalleryMedia.assets);
-          console.log(userGalleryMedia.assets[0].uri);
         } catch (error) {
           console.error("Error accessing media library:", error);
           // Handle the error as needed
@@ -50,18 +52,20 @@ export default function CameraScreen() {
     permisions();
   }, []);
 
-  const recordVideo = async () => {
-    if (cameraRef) {
+  const recordVideo = async (ref) => {
+    if (ref) {
       try {
         const options = {
           maxDuration: 20,
-          quality: Camera.constants.VideoQuality["480"],
+          quality: Camera.Constants.VideoQuality["480"],
         };
-        const videoRecordPromise = cameraRef.recordAsync(options);
+        console.log(ref._cameraHandle);
+        const videoRecordPromise = ref.recordAsync(options);
         if (videoRecordPromise) {
-          const data = await videoRecordPromise();
-          const sourse = data.uri;
-          // more todo
+          const data = await videoRecordPromise;
+          const source = data.uri;
+          let sourceThumb = await generateThumbnail(source);
+          navigation.navigate("SavePost", { source, sourceThumb });
         }
       } catch (err) {
         console.warn(err);
@@ -69,9 +73,9 @@ export default function CameraScreen() {
     }
   };
 
-  const stopVideo = async () => {
-    if (cameraRef) {
-      cameraRef.stopRecording();
+  const stopVideo = async (ref) => {
+    if (ref) {
+      ref.stopRecording();
     }
   };
 
@@ -84,16 +88,31 @@ export default function CameraScreen() {
     );
   }
 
+  const generateThumbnail = async (source) => {
+    try {
+      const { uri } = await VideoThumbnails.getThumbnailAsync(source, {
+        time: 1000,
+      });
+      console.log(source);
+      return uri;
+    } catch (e) {
+      console.warn("😎", e);
+    }
+  };
+
   const pickFromGallery = async () => {
-    let results = await ImagePicker.launchImageLibraryAsync({
+    let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Videos,
       allowsEditing: true,
       quality: 1,
       aspect: [16, 9],
     });
     if (!result.canceled) {
-      console.log(result.uri);
-      //todo
+      let sourceThumb = await generateThumbnail(result.assets[0].uri);
+      navigation.navigate("SavePost", {
+        source: result.assets[0].uri,
+        sourceThumb,
+      });
     }
   };
 
@@ -125,7 +144,6 @@ export default function CameraScreen() {
             size={24}
             color={"white"}
           />
-          <Text style={styles.iconText}>Flip</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.sideBarButton}
@@ -144,15 +162,14 @@ export default function CameraScreen() {
             size={24}
             color={"white"}
           />
-          <Text style={styles.iconText}>Flash</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.bottomBar}>
         <View stlye={styles.recordButtonContainer}>
           <TouchableOpacity
             disabled={!isCameraReady}
-            onLongPress={() => recordVideo()}
-            onPressOut={() => stopVideo()}
+            onLongPress={() => recordVideo(cameraRef)}
+            onPressOut={() => stopVideo(cameraRef)}
             style={styles.recordButton}
           />
         </View>

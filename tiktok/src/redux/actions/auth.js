@@ -6,11 +6,13 @@ import {
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { auth, firestore } from "../../../App";
 import { USER_STATE_CHANGE } from "../constants";
+import { getPostsByUser } from "./post";
 
 export const userAuthStateListner = () => (dispatch) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       dispatch(getCurrentUserData());
+      dispatch(getPostsByUser(auth.currentUser.uid));
     } else {
       dispatch({ type: USER_STATE_CHANGE, currentUser: null, loaded: true });
     }

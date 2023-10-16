@@ -4,6 +4,7 @@ import Constants from "expo-constants";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 import firebaseSecret from "./secrets.json";
 import { Provider } from "react-redux";
 import { applyMiddleware } from "redux";
@@ -16,7 +17,8 @@ import Route from "./src/navigation/main";
 const app = initializeApp(firebaseSecret);
 const firestore = getFirestore(app);
 const auth = getAuth(app);
-export { auth, firestore };
+const storage = getStorage(app);
+export { auth, firestore, storage };
 
 const store = configureStore({
   reducer: Reducers,
