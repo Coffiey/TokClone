@@ -3,7 +3,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, onSnapshot } from "firebase/firestore";
 import { auth, firestore } from "../../../App";
 import { USER_STATE_CHANGE } from "../constants";
 import { getPostsByUser } from "./post";
@@ -21,16 +21,16 @@ export const userAuthStateListner = () => (dispatch) => {
 
 export const getCurrentUserData = () => (dispatch) => {
   const userDocRef = doc(collection(firestore, "user"), auth.currentUser.uid);
-  getDoc(userDocRef)
-    .then((res) => res.data())
-    .then((userData) =>
-      dispatch({
+  onSnapshot(userDocRef, (res) => {
+    if (res.exists) {
+      const userData = res.data();
+      return dispatch({
         type: USER_STATE_CHANGE,
-        currentUser: userData,
+        currentUser: res.data(),
         loaded: true,
-      })
-    )
-    .catch((err) => console.error(err));
+      });
+    }
+  });
 };
 
 export const login = (email, password) => (dispatch) =>
