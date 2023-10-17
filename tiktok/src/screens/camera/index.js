@@ -54,12 +54,13 @@ export default function CameraScreen() {
 
   const recordVideo = async (ref) => {
     if (ref) {
+      console.log(ref);
       try {
         const options = {
           maxDuration: 20,
           quality: Camera.Constants.VideoQuality["480"],
         };
-        const videoRecordPromise = ref.recordAsync(options);
+        const videoRecordPromise = await ref.recordAsync(options);
         if (videoRecordPromise) {
           const data = await videoRecordPromise;
           const source = data.uri;

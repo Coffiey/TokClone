@@ -11,6 +11,7 @@ import {
   getDocs,
   query,
   orderBy,
+  onSnapshot,
 } from "firebase/firestore";
 import { auth, firestore } from "../../../App";
 import { CURRENT_USER_POSTS_UPDATE, USER_STATE_CHANGE } from "../constants";
@@ -55,14 +56,12 @@ export const getPostsByUser =
         where("creator", "==", uid),
         orderBy("creation", "desc")
       );
-      getDocs(dataQuery)
-        .then((dataArray) => {
-          const data = dataArray.docs.map((doc) => {
-            const data = doc.data();
-            const id = doc.id;
-            return { id, ...data };
-          });
-          dispatch({ type: CURRENT_USER_POSTS_UPDATE, currentUserPosts: data });
-        })
-        .catch(() => reject());
+      onSnapshot(dataQuery, (dataArray) => {
+        const data = dataArray.docs.map((doc) => {
+          const data = doc.data();
+          const id = doc.id;
+          return { id, ...data };
+        });
+        dispatch({ type: CURRENT_USER_POSTS_UPDATE, currentUserPosts: data });
+      });
     });
