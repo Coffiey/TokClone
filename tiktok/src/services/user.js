@@ -1,6 +1,13 @@
 import { auth, firestore } from "../../App";
 import { saveMediaToStorage } from "./misc";
-import { doc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  query,
+  where,
+  getDocs,
+  collection,
+} from "firebase/firestore";
 
 export const saveUserProfileImage = (image) =>
   new Promise((resolve, reject) => {
@@ -22,4 +29,26 @@ export const saveUserField = (field, value) =>
       .then(() => (item = false))
       .then(() => resolve())
       .catch(() => reject());
+  });
+
+export const queryUserByEmail = (email) =>
+  new Promise((resolve, reject) => {
+    if (email === "") {
+      resolve([]);
+    } else {
+      const dataCollection = collection(firestore, "user");
+      const location1 = where("email", ">=", email);
+      const location2 = where("email", "<=", email + "\uf8ff");
+      const dataQuery = query(dataCollection, location1, location2);
+      getDocs(dataQuery)
+        .then((userResult) => {
+          const users = userResult.docs.map((doc) => {
+            const data = doc.data();
+            const id = doc.id;
+            return { id, ...data };
+          });
+          resolve(users);
+        })
+        .catch(() => reject());
+    }
   });
