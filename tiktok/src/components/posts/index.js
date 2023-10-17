@@ -5,9 +5,11 @@ import { ResizeMode, Video } from "expo-av";
 
 export const PostSingle = forwardRef((props, parentRef) => {
   const ref = useRef(null);
-  useImperativeHandle(parentRef, () => {
-    play, unload, stop;
-  });
+  useImperativeHandle(parentRef, () => ({
+    play,
+    unload,
+    stop,
+  }));
 
   useEffect(() => {
     return () => {
@@ -16,7 +18,7 @@ export const PostSingle = forwardRef((props, parentRef) => {
   }, []);
 
   const play = async () => {
-    if (!ref.current) return;
+    if (ref.current == null) return;
     const status = await ref.current.getStatusAsync();
     if (status?.isplaying) return;
     try {
@@ -27,7 +29,7 @@ export const PostSingle = forwardRef((props, parentRef) => {
   };
 
   const stop = async () => {
-    if (!ref.current) return;
+    if (ref.current == null) return;
     const status = await ref.current.getStatusAsync();
     if (!status?.isplaying) return;
     try {
@@ -38,7 +40,8 @@ export const PostSingle = forwardRef((props, parentRef) => {
   };
 
   const unload = async () => {
-    if (!ref.current) return;
+    console.log("unload");
+    if (ref.current == null) return;
     try {
       await ref.current.unloadAsync();
     } catch (e) {
@@ -51,6 +54,7 @@ export const PostSingle = forwardRef((props, parentRef) => {
       ref={ref}
       style={styles.Video}
       resizeMode={ResizeMode.COVER}
+      isLooping
       shouldPlay={true}
       source={{
         uri: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4",
