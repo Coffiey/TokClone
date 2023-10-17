@@ -18,6 +18,7 @@ export const PostSingle = forwardRef((props, parentRef) => {
   }, []);
 
   const play = async () => {
+    console.log("play");
     if (ref.current == null) return;
     const status = await ref.current.getStatusAsync();
     if (status?.isplaying) return;
@@ -29,6 +30,7 @@ export const PostSingle = forwardRef((props, parentRef) => {
   };
 
   const stop = async () => {
+    console.log("stop");
     if (ref.current == null) return;
     const status = await ref.current.getStatusAsync();
     if (!status?.isplaying) return;
