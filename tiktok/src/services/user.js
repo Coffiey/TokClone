@@ -7,6 +7,7 @@ import {
   where,
   getDocs,
   collection,
+  getDoc,
 } from "firebase/firestore";
 
 export const saveUserProfileImage = (image) =>
@@ -51,4 +52,14 @@ export const queryUserByEmail = (email) =>
         })
         .catch(() => reject());
     }
+  });
+
+export const getUserById = (id) =>
+  new Promise((resolve, reject) => {
+    const userDocRef = doc(collection(firestore, "user"), id);
+    getDoc(userDocRef)
+      .then((res) => {
+        resolve(res.exists ? res.data() : null);
+      })
+      .catch(() => reject());
   });

@@ -1,9 +1,4 @@
 import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import {
   collection,
   addDoc,
   serverTimestamp,

@@ -1,18 +1,20 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import Constants from "expo-constants";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import firebaseSecret from "./secrets.json";
 import { Provider } from "react-redux";
-import { applyMiddleware } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import Reducers from "./src/redux/reducers/index.js";
-import AuthScreen from "./src/screens/auth";
 import Route from "./src/navigation/main";
+import {
+  QueryClientProvider,
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+} from "react-query";
 
 const app = initializeApp(firebaseSecret);
 const firestore = getFirestore(app);
@@ -25,10 +27,16 @@ const store = configureStore({
   middleware: [thunk],
 });
 
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refreshInterval: false, staleTime: Infinity } },
+});
+
 export default function App() {
   return (
     <Provider store={store}>
-      <Route />
+      <QueryClientProvider client={queryClient}>
+        <Route />
+      </QueryClientProvider>
     </Provider>
   );
 }

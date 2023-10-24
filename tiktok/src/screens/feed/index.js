@@ -1,40 +1,54 @@
-import { View, Text, FlatList, Dimensions } from "react-native";
-import { useRef } from "react";
+import { View, Text, FlatList, Dimensions, ScrollView } from "react-native";
+import { useRef, useEffect, useState } from "react";
 import styles from "./styles";
-import PostSingle from "../../components/posts";
+import PostSingle from "../../components/general/posts";
+import { getFeed } from "../../services/post";
 
 export default function FeedScreen() {
-  const array = [1, 2, 3, 4, 5, 6];
+  const [post, setPosts] = useState([]);
+  useEffect(() => {
+    getFeed().then(setPosts);
+  }, []);
 
   const mediaRefs = useRef([]);
 
-  const onViewableItemsChanged = useRef(({ changed }) => {
-    changed.forEach((element) => {
+  const onViewableItemsChanged = useRef((changed) => {
+    console.log(changed.changed);
+    changed.changed.forEach((element) => {
       const cell = mediaRefs.current[element.key];
       if (cell) {
         if (element.isViewable) {
-          cell.play;
+          cell.play();
         } else {
-          cell.stop;
+          cell.stop();
         }
       }
     });
   });
 
+  let onScrollEnd = (e) => {
+    console.log("😎", e);
+    let pageNumber = Math.min(
+      Math.max(
+        Math.floor(e.nativeEvent.contentOffset.x / dimensions_width + 0.5) + 1,
+        0
+      ),
+      listItems.length
+    );
+  };
   const renderItem = ({ item, index }) => {
     return (
       <View
-        style={[
-          {
-            // flex: 1,
-            height: Dimensions.get("window").height - 80,
-          },
-          index % 2 ? { backgroundColor: "blue" } : { backgroundColor: "pink" },
-        ]}
+        style={{
+          // flex: 1,
+          height: Dimensions.get("window").height - 80,
+        }}
       >
         <PostSingle
           item={item}
-          ref={(PostSingleRef) => (mediaRefs.current[item] = PostSingleRef)}
+          ref={(PostSingleRef) => {
+            mediaRefs.current[item.id] = PostSingleRef;
+          }}
         />
       </View>
     );
@@ -42,14 +56,16 @@ export default function FeedScreen() {
   return (
     <View style={styles.container}>
       <FlatList
-        removeClippedSubviews
-        viewabilityConfig={{ itemVisiblePercentThreshold: 100 }}
+        // pagingEnabled
+        onMomentumScrollEnd={onScrollEnd}
+        viewabilityConfig={{
+          itemVisiblePercentThreshold: 90,
+        }}
         renderItem={renderItem}
-        windowSize={4}
+        windowSize={1}
         maxToRenderPerBatch={2}
-        data={array}
-        pagingEnabled
-        keyExtractor={(item) => item}
+        data={post}
+        keyExtractor={(item) => item.id}
         onViewableItemsChanged={onViewableItemsChanged.current}
       />
     </View>
