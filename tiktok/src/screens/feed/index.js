@@ -13,7 +13,6 @@ export default function FeedScreen() {
   const mediaRefs = useRef([]);
 
   const onViewableItemsChanged = useRef((changed) => {
-    console.log(changed.changed);
     changed.changed.forEach((element) => {
       const cell = mediaRefs.current[element.key];
       if (cell) {
@@ -26,16 +25,6 @@ export default function FeedScreen() {
     });
   });
 
-  let onScrollEnd = (e) => {
-    console.log("😎", e);
-    let pageNumber = Math.min(
-      Math.max(
-        Math.floor(e.nativeEvent.contentOffset.x / dimensions_width + 0.5) + 1,
-        0
-      ),
-      listItems.length
-    );
-  };
   const renderItem = ({ item, index }) => {
     return (
       <View
@@ -56,8 +45,7 @@ export default function FeedScreen() {
   return (
     <View style={styles.container}>
       <FlatList
-        // pagingEnabled
-        onMomentumScrollEnd={onScrollEnd}
+        pagingEnabled
         viewabilityConfig={{
           itemVisiblePercentThreshold: 90,
         }}

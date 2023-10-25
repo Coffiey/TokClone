@@ -1,4 +1,12 @@
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  getDoc,
+  setDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { firestore } from "../../App";
 
 export const getFeed = () =>
@@ -15,4 +23,25 @@ export const getFeed = () =>
       });
       resolve(data);
     });
+  });
+
+export const getLikeById = (postId, uid) =>
+  new Promise((resolve, reject) => {
+    const userDocRef = doc(firestore, "post", postId, "likes", uid);
+    getDoc(userDocRef)
+      .then((res) => {
+        resolve(res.exists);
+      })
+      .catch(() => reject());
+  });
+
+export const updateLike = (postId, uid, currentLikeState) =>
+  new Promise((resolve, reject) => {
+    if (currentLikeState) {
+      const userDocRef = doc(firestore, "post", postId, "likes", uid);
+      deleteDoc(userDocRef).catch(() => reject());
+    } else {
+      const userDocRef = doc(firestore, "post", postId, "likes", uid);
+      setDoc(userDocRef, {}).catch(() => reject());
+    }
   });

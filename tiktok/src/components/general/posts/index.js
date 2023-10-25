@@ -3,11 +3,12 @@ import { useRef, forwardRef, useImperativeHandle, useEffect } from "react";
 import styles from "./styles";
 import { ResizeMode, Video } from "expo-av";
 import { useUser } from "../../../hooks/useUser";
+import PostSingleOverlay from "./overlay";
 
 export const PostSingle = forwardRef(({ item }, parentRef) => {
   const ref = useRef(null);
-  const user = useUser(item.creator);
-  // console.log(user);
+  const user = useUser(item.creator).data;
+  console.log(user);
   useImperativeHandle(parentRef, () => ({
     play,
     unload,
@@ -26,7 +27,6 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
     if (status?.isPlaying) return;
     try {
       await ref.current.playAsync();
-      console.log("play button exicuted");
     } catch (e) {
       console.error(e);
     }
@@ -38,14 +38,12 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
     if (!status?.isPlaying) return;
     try {
       await ref.current.stopAsync();
-      console.log("stop button exicuted");
     } catch (e) {
       console.error(e);
     }
   };
 
   const unload = async () => {
-    console.log("unload");
     if (ref.current == null) return;
     try {
       await ref.current.unloadAsync();
@@ -55,22 +53,27 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
   };
 
   return (
-    <Video
-      ref={ref}
-      style={styles.Video}
-      resizeMode={ResizeMode.COVER}
-      isLooping
-      //need to change
-      isMuted
-      usePoster={{
-        uri: item.media[1],
-      }}
-      posterStyle={{ resizeMode: "cover", height: "100%" }}
-      shouldPlay={true}
-      source={{
-        uri: item.media[0],
-      }}
-    />
+    <>
+      <PostSingleOverlay
+        user={user}
+        post={item}
+      />
+
+      <Video
+        ref={ref}
+        style={styles.Video}
+        resizeMode={ResizeMode.COVER}
+        isLooping
+        usePoster={{
+          uri: item.media[1],
+        }}
+        posterStyle={{ resizeMode: "cover", height: "100%" }}
+        shouldPlay={true}
+        source={{
+          uri: item.media[0],
+        }}
+      />
+    </>
   );
 });
 
