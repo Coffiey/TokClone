@@ -6,6 +6,7 @@ import {
   getDoc,
   setDoc,
   deleteDoc,
+  doc,
 } from "firebase/firestore";
 import { firestore } from "../../App";
 
@@ -30,7 +31,7 @@ export const getLikeById = (postId, uid) =>
     const userDocRef = doc(firestore, "post", postId, "likes", uid);
     getDoc(userDocRef)
       .then((res) => {
-        resolve(res.exists);
+        resolve(res.exists());
       })
       .catch(() => reject());
   });
@@ -38,7 +39,12 @@ export const getLikeById = (postId, uid) =>
 export const updateLike = (postId, uid, currentLikeState) =>
   new Promise((resolve, reject) => {
     if (currentLikeState) {
-      const userDocRef = doc(firestore, "post", postId, "likes", uid);
+      const userDocRef = doc(
+        collection(firestore, "post"),
+        postId,
+        "likes",
+        uid
+      );
       deleteDoc(userDocRef).catch(() => reject());
     } else {
       const userDocRef = doc(firestore, "post", postId, "likes", uid);

@@ -8,7 +8,6 @@ import PostSingleOverlay from "./overlay";
 export const PostSingle = forwardRef(({ item }, parentRef) => {
   const ref = useRef(null);
   const user = useUser(item.creator).data;
-  console.log(user);
   useImperativeHandle(parentRef, () => ({
     play,
     unload,

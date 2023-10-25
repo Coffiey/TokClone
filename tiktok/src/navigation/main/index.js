@@ -9,6 +9,7 @@ import AuthScreen from "../../screens/auth";
 import HomeScreen from "../home";
 import EditPorfileScreen from "../../screens/profile/edit";
 import EditProfileFieldScreen from "../../screens/profile/edit/field";
+import Model from "../../components/model";
 
 export default function Route() {
   const Stack = createNativeStackNavigator();
@@ -59,6 +60,7 @@ export default function Route() {
           />
         )}
       </Stack.Navigator>
+      <Model />
     </NavigationContainer>
   );
 }

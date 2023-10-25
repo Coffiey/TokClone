@@ -3,6 +3,7 @@ import { Dimensions, StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
+    bottom: 0,
     width: Dimensions.get("window").width,
     zIndex: 100,
     paddingLeft: 20,
@@ -11,6 +12,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-end",
   },
+  bottomContainer: {
+    flexDirection: "row",
+  },
   displayName: {
     color: "white",
     fontWeight: "bold",
@@ -18,16 +22,18 @@ const styles = StyleSheet.create({
   },
   description: {
     color: "white",
-    marginTop: 10,
+    marginTop: 5,
   },
   avatar: {
     height: 50,
     width: 50,
     borderRadius: 25,
     borderColor: "white",
+    marginRight: 20,
   },
   leftContainer: {
     alignItems: "center",
+    marginBottom: 40,
   },
   action: {
     padding: 10,
@@ -36,7 +42,7 @@ const styles = StyleSheet.create({
   actionButtonText: {
     color: "white",
     textAlign: "center",
-    marginTop: 4,
+    marginTop: 2,
   },
 });
 
