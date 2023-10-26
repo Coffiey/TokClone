@@ -3,10 +3,10 @@ import { useEffect, useRef } from "react";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCommentModel } from "../../redux/actions/model";
+import CommentModel from "./comment";
 
 const Model = () => {
   const modelState = useSelector((state) => state.model);
-  console.log(modelState?.data?.description);
   const bottomSheetRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ const Model = () => {
   const renderContent = () => {
     switch (modelState.modelType) {
       case 0:
-        return <></>;
+        return <CommentModel post={modelState.data} />;
       default:
         return <></>;
     }
@@ -36,7 +36,9 @@ const Model = () => {
       handleHeight={40}
       enablePanDownToClose
       onClose={handleOnClose}
-    ></BottomSheet>
+    >
+      {renderContent()}
+    </BottomSheet>
   );
 };
 

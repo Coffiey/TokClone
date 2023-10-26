@@ -1,10 +1,11 @@
 import { CLEAR_MODEL, MODEL_OPEN_COMMENT_SECTION } from "../constants";
 
 export const openCommentModel = (open, data) => (dispatch) => {
+  console.log("fired");
   return dispatch({
     data,
     open,
-    modelTyle: 0,
+    modelType: 0,
     type: MODEL_OPEN_COMMENT_SECTION,
   });
 };

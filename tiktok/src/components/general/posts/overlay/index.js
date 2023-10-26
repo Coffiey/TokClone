@@ -77,9 +77,7 @@ export default function PostSingleOverlay({ user, post }) {
                 size={40}
                 name='chatbubble-outline'
               />
-              <Text style={styles.actionButtonText}>
-                {currentLikeState.counter}
-              </Text>
+              <Text style={styles.actionButtonText}>{post.commentsCount}</Text>
             </TouchableOpacity>
           </View>
         </>

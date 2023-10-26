@@ -7,8 +7,12 @@ import {
   setDoc,
   deleteDoc,
   doc,
+  addDoc,
+  serverTimestamp,
 } from "firebase/firestore";
 import { firestore } from "../../App";
+
+let commentListerInstance = null;
 
 export const getFeed = () =>
   new Promise((resolve, reject) => {
@@ -51,3 +55,34 @@ export const updateLike = (postId, uid, currentLikeState) =>
       setDoc(userDocRef, {}).catch(() => reject());
     }
   });
+
+export const addComment = (postId, creator, comment) => {
+  const userDocRef = collection(firestore, "post", postId, "comments");
+  addDoc(userDocRef, { creator, comment, creation: serverTimestamp() }).catch(
+    () => reject()
+  );
+};
+
+export const commentListner = (postId, setCommentList) => {
+  const dataQuery = query(
+    collection(firestore, "post", postId, "comments"),
+    orderBy("creation", "desc")
+  );
+  const commentListerInstance = onSnapshot(dataQuery, (dataArray) => {
+    if (dataArray.docChanges().length == 0) return;
+    const comment = dataArray.docs.map((doc) => {
+      const data = doc.data();
+      const id = doc.id;
+      return { id, ...data };
+    });
+    setCommentList(comment);
+  });
+};
+
+export const clearCommentListner = () => {
+  console.log("clear called");
+  if (commentListerInstance) {
+    commentListerInstance();
+    commentListerInstance = null;
+  }
+};
