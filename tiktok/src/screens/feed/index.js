@@ -4,7 +4,8 @@ import styles from "./styles";
 import PostSingle from "../../components/general/posts";
 import { getFeed } from "../../services/post";
 
-export default function FeedScreen() {
+export default function FeedScreen({ route }) {
+  const { setCurrentUserProfileItemView } = route.params;
   const [post, setPosts] = useState([]);
   useEffect(() => {
     getFeed().then(setPosts);
@@ -17,6 +18,7 @@ export default function FeedScreen() {
       const cell = mediaRefs.current[element.key];
       if (cell) {
         if (element.isViewable) {
+          setCurrentUserProfileItemView(element.item.creator);
           cell.play();
         } else {
           cell.stop();

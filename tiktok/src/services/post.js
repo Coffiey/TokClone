@@ -68,7 +68,7 @@ export const commentListner = (postId, setCommentList) => {
     collection(firestore, "post", postId, "comments"),
     orderBy("creation", "desc")
   );
-  const commentListerInstance = onSnapshot(dataQuery, (dataArray) => {
+  commentListerInstance = onSnapshot(dataQuery, (dataArray) => {
     if (dataArray.docChanges().length == 0) return;
     const comment = dataArray.docs.map((doc) => {
       const data = doc.data();
@@ -86,3 +86,22 @@ export const clearCommentListner = () => {
     commentListerInstance = null;
   }
 };
+
+export const getPostsByUserId =
+  (uid = auth.currentUser.uid) =>
+  (dispatch) =>
+    new Promise((resolve, reject) => {
+      const dataQuery = query(
+        collection(firestore, "post"),
+        where("creator", "==", uid),
+        orderBy("creation", "desc")
+      );
+      onSnapshot(dataQuery, (dataArray) => {
+        const data = dataArray.docs.map((doc) => {
+          const data = doc.data();
+          const id = doc.id;
+          return { id, ...data };
+        });
+        resolve(data);
+      });
+    });
