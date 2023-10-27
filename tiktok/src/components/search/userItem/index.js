@@ -2,16 +2,20 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import styles from "./styles";
 import { Avatar } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SearchUserItem({ item }) {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate("profileOther", {
+          initaUserId: item.uid,
+        })
+      }
+    >
       <Text style={styles.text}>{item.displayName || "No Username Set"}</Text>
-      {/* <Image
-        source={item.photoURL ? { uri: item.photoURL } : { uri: item.photoURL }}
-        style={styles.image}
-      /> */}
-
       {item.photoURL ? (
         <Avatar.Image
           style={styles.image}

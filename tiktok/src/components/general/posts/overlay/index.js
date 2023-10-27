@@ -6,10 +6,12 @@ import { getLikeById, updateLike } from "../../../../services/post";
 import { useDispatch, useSelector } from "react-redux";
 import { throttle } from "throttle-debounce";
 import { openCommentModel } from "../../../../redux/actions/model";
+import { useNavigation } from "@react-navigation/native";
 
 export default function PostSingleOverlay({ user, post }) {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const [currentLikeState, setCurrentLikeState] = useState({
     state: false,
@@ -44,10 +46,18 @@ export default function PostSingleOverlay({ user, post }) {
       {user && (
         <>
           <View style={styles.bottomContainer}>
-            <Image
-              source={{ uri: user.photoURL }}
-              style={styles.avatar}
-            />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("profileOther", {
+                  initaUserId: user.uid,
+                })
+              }
+            >
+              <Image
+                source={{ uri: user.photoURL }}
+                style={styles.avatar}
+              />
+            </TouchableOpacity>
             <View>
               <Text style={styles.displayName}>{user.displayName}</Text>
               <Text style={styles.description}>{post.description}</Text>
