@@ -1,14 +1,21 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import styles from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ProfilePostListItem({ item }) {
+  const navigate = useNavigation();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() =>
+        navigate.navigate("userPost", { creator: item.creator, profile: true })
+      }
+    >
       <Image
         style={styles.image}
         source={{ uri: item.media[1] }}
       />
-    </View>
+    </TouchableOpacity>
   );
 }

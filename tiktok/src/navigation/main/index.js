@@ -11,6 +11,7 @@ import EditPorfileScreen from "../../screens/profile/edit";
 import EditProfileFieldScreen from "../../screens/profile/edit/field";
 import Model from "../../components/model";
 import ProfileScreen from "../../screens/profile";
+import FeedScreen from "../../screens/feed";
 
 export default function Route() {
   const Stack = createNativeStackNavigator();
@@ -40,6 +41,11 @@ export default function Route() {
             <Stack.Screen
               name='SavePost'
               component={SavePostScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name='userPosts'
+              component={FeedScreen}
               options={{ headerShown: false }}
             />
             <Stack.Screen

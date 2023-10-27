@@ -2,12 +2,15 @@ import { View, Text, FlatList, Dimensions, ScrollView } from "react-native";
 import { useRef, useEffect, useState } from "react";
 import styles from "./styles";
 import PostSingle from "../../components/general/posts";
-import { getFeed } from "../../services/post";
+import { getFeed, getPostsByUserId } from "../../services/post";
 
 export default function FeedScreen({ route }) {
-  const { setCurrentUserProfileItemView } = route.params;
+  const { setCurrentUserProfileItemView, creator, profile } = route.params;
   const [post, setPosts] = useState([]);
   useEffect(() => {
+    if (profile) {
+      getPostsByUserId(creator).then(setPosts);
+    }
     getFeed().then(setPosts);
   }, []);
 
@@ -18,7 +21,9 @@ export default function FeedScreen({ route }) {
       const cell = mediaRefs.current[element.key];
       if (cell) {
         if (element.isViewable) {
-          setCurrentUserProfileItemView(element.item.creator);
+          if (!profile) {
+            setCurrentUserProfileItemView(element.item.creator);
+          }
           cell.play();
         } else {
           cell.stop();
