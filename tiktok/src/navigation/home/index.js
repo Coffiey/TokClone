@@ -7,6 +7,7 @@ import ProfileScreen from "../../screens/profile";
 import SearchScreen from "../../screens/search";
 import FeedScreen from "../../screens/feed";
 import FeedNavigation from "../feed";
+import { auth } from "../../../App";
 
 export default function HomeScreen() {
   const Tab = createMaterialBottomTabNavigator();
@@ -83,6 +84,7 @@ export default function HomeScreen() {
             />
           ),
         }}
+        initialParams={{ initialUserId: auth.currentUser.uid }}
       />
     </Tab.Navigator>
   );

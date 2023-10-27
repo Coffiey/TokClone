@@ -27,6 +27,7 @@ const FeedNavigation = () => {
         <Screen
           name='feedList'
           component={ProfileScreen}
+          initialParams={{ initialUserId: null }}
         />
       </Navigator>
     </CurrentUserProfileItemInViewContext.Provider>

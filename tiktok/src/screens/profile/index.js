@@ -10,15 +10,14 @@ import { CurrentUserProfileItemInViewContext } from "../../navigation/feed";
 import { useUser } from "../../hooks/useUser";
 import { getPostsByUserId } from "../../services/post";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ route }) {
+  const { initalUserId } = route.params;
   const [userPosts, setUserPosts] = useState([]);
   let providerUserId = null;
   if (CurrentUserProfileItemInViewContext) {
     providerUserId = useContext(CurrentUserProfileItemInViewContext);
   }
-  const user = useUser(providerUserId).data;
-
-  // const currentUserPosts = useSelector((state) => state.posts.currentUserPosts);
+  const user = useUser(initalUserId ? initalUserId : providerUserId).data;
 
   useEffect(() => {
     if (user) {
