@@ -6,6 +6,7 @@ import CameraScreen from "../../screens/camera";
 import ProfileScreen from "../../screens/profile";
 import SearchScreen from "../../screens/search";
 import FeedScreen from "../../screens/feed";
+import FeedNavigation from "../feed";
 
 export default function HomeScreen() {
   const Tab = createMaterialBottomTabNavigator();
@@ -20,7 +21,7 @@ export default function HomeScreen() {
     >
       <Tab.Screen
         name='feed'
-        component={FeedScreen}
+        component={FeedNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather
