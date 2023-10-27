@@ -22,7 +22,7 @@ export default function ProfileScreen() {
 
   useEffect(() => {
     if (user) {
-      getPostsByUserId(user.uid).then(setuserPost);
+      getPostsByUserId(user.uid).then(setUserPosts);
     }
   }, [user]);
   return (
