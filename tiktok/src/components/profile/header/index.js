@@ -40,12 +40,14 @@ export default function ProfileHeader({ user }) {
           <Text style={styles.counterLabelText}>Likes</Text>
         </View>
       </View>
-      <TouchableOpacity
-        style={buttonStyles.greyOutlineButton}
-        onPress={() => navigation.navigate("editProfile")}
-      >
-        <Text>EDIT Profile</Text>
-      </TouchableOpacity>
+      {auth.currentUser.uid === user.uid && (
+        <TouchableOpacity
+          style={buttonStyles.greyOutlineButton}
+          onPress={() => navigation.navigate("editProfile")}
+        >
+          <Text>EDIT Profile</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
