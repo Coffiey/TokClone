@@ -6,12 +6,14 @@ import { buttonStyles } from "../../../styles";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
+import { useFollowing } from "../../../hooks/useFollowing";
+
 export default function ProfileHeader({ user }) {
   const auth = useSelector((state) => state.auth);
   const navigation = useNavigation();
+  const isFollowing = useFollowing(auth.currentUser.uid, user.uid).data();
 
   const renderFollowButton = () => {
-    const isFollowing = true;
     if (isFollowing) {
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
@@ -77,7 +79,7 @@ export default function ProfileHeader({ user }) {
           style={buttonStyles.greyOutlineButton}
           onPress={() => navigation.navigate("editProfile")}
         >
-          <Text>EDIT Profile</Text>
+          <Text style={buttonStyles.greyOutlineButtonText}>EDIT Profile</Text>
         </TouchableOpacity>
       ) : (
         renderFollowButton()

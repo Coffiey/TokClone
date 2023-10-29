@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-import { USER_KEY } from "./queryKeys";
+import { keys } from "./queryKeys";
 import { getUserById } from "../services/user";
 
 export const useUser = (userId, options = {}) => {
-  return useQuery([USER_KEY, userId], () => getUserById(userId), options);
+  return useQuery(keys.user(userId), () => getUserById(userId), options);
 };

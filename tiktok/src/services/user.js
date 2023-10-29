@@ -63,3 +63,13 @@ export const getUserById = (id) =>
       })
       .catch(() => reject());
   });
+
+export const getIsFollowing = (userId, otherUserId) =>
+  new Promise((resolve, reject) => {
+    const userDocRef = doc(firestore, "post", userId, "following", otherUserId);
+    getDoc(userDocRef)
+      .then((res) => {
+        resolve(res.exists());
+      })
+      .catch(() => reject());
+  });
