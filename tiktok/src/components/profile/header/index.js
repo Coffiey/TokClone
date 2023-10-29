@@ -5,11 +5,43 @@ import { Avatar } from "react-native-paper";
 import { buttonStyles } from "../../../styles";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-
+import { Feather } from "@expo/vector-icons";
 export default function ProfileHeader({ user }) {
   const auth = useSelector((state) => state.auth);
-  console.log(auth.currentUser.photoURL);
   const navigation = useNavigation();
+
+  const renderFollowButton = () => {
+    const isFollowing = true;
+    if (isFollowing) {
+      <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity
+          style={buttonStyles.greyOutlineButton}
+          // onPress={() => navigation.navigate("editProfile")}
+        >
+          <Text style={buttonStyles.greyOutlineButtonText}>Message</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={buttonStyles.filledButton}
+          // onPress={() => navigation.navigate("editProfile")}
+        >
+          <Feather
+            name='user-check'
+            size={20}
+          />
+          <Text style={buttonStyles.filledButtonText}>Un-Follow</Text>
+        </TouchableOpacity>
+      </View>;
+    } else {
+      return (
+        <TouchableOpacity
+          style={buttonStyles.filledButton}
+          // onPress={() => navigation.navigate("editProfile")}
+        >
+          <Text style={buttonStyles.filledButtonText}>Follow</Text>
+        </TouchableOpacity>
+      );
+    }
+  };
   return (
     <View style={styles.container}>
       {auth.currentUser.photoURL ? (
@@ -40,13 +72,15 @@ export default function ProfileHeader({ user }) {
           <Text style={styles.counterLabelText}>Likes</Text>
         </View>
       </View>
-      {auth.currentUser.uid === user.uid && (
+      {auth.currentUser.uid === user.uid ? (
         <TouchableOpacity
           style={buttonStyles.greyOutlineButton}
           onPress={() => navigation.navigate("editProfile")}
         >
           <Text>EDIT Profile</Text>
         </TouchableOpacity>
+      ) : (
+        renderFollowButton()
       )}
     </View>
   );
