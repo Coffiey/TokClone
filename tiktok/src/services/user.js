@@ -8,6 +8,7 @@ import {
   getDocs,
   collection,
   getDoc,
+  setDoc,
 } from "firebase/firestore";
 
 export const saveUserProfileImage = (image) =>
@@ -72,4 +73,27 @@ export const getIsFollowing = (userId, otherUserId) =>
         resolve(res.exists());
       })
       .catch(() => reject());
+  });
+
+export const changeFollowingState = ({ otherUserId, isFollowing }) =>
+  new Promise((resolve, reject) => {
+    if (isFollowing) {
+      const userDocRef = doc(
+        firestore,
+        "post",
+        auth.currentUser.uid,
+        "following",
+        otherUserId
+      );
+      deleteDoc(userDocRef).catch(() => reject());
+    } else {
+      const userDocRef = doc(
+        firestore,
+        "post",
+        auth.currentUser.uid,
+        "likes",
+        uid
+      );
+      setDoc(userDocRef, {}).catch(() => reject());
+    }
   });

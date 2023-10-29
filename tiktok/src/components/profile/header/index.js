@@ -7,11 +7,13 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import { useFollowing } from "../../../hooks/useFollowing";
+import { useFollowingMutation } from "../../../hooks/useFollowingMutation";
 
 export default function ProfileHeader({ user }) {
   const auth = useSelector((state) => state.auth);
   const navigation = useNavigation();
   const isFollowing = useFollowing(auth.currentUser.uid, user.uid).data();
+  const isFollowingMutation = useFollowingMutation();
 
   const renderFollowButton = () => {
     if (isFollowing) {
@@ -24,7 +26,9 @@ export default function ProfileHeader({ user }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={buttonStyles.filledButton}
-          // onPress={() => navigation.navigate("editProfile")}
+          onPress={() =>
+            isFollowingMutation.mutate({ otherUserId: user.uid, isFollowing })
+          }
         >
           <Feather
             name='user-check'
@@ -37,7 +41,9 @@ export default function ProfileHeader({ user }) {
       return (
         <TouchableOpacity
           style={buttonStyles.filledButton}
-          // onPress={() => navigation.navigate("editProfile")}
+          onPress={() =>
+            isFollowingMutation.mutate({ userId: user.uid, isFollowing })
+          }
         >
           <Text style={buttonStyles.filledButtonText}>Follow</Text>
         </TouchableOpacity>

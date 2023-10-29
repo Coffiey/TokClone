@@ -36,6 +36,11 @@ exports.counterCreate = functions.firestore
         likesCount: admin.firestore.FieldValue.increment(1),
       };
     }
+    // if (context.params.type == "following") {
+    //   updateObj = {
+    //     followingCount: admin.firestore.FieldValue.increment(1),
+    //   };
+    // }
     return db.collection("post").doc(context.params.id).update({
       updateObj,
     });
@@ -54,6 +59,11 @@ exports.counterDelete = functions.firestore
         likesCount: admin.firestore.FieldValue.increment(-1),
       };
     }
+    // if (context.params.type == "following") {
+    //   updateObj = {
+    //     followingCount: admin.firestore.FieldValue.increment(-1),
+    //   };
+    // }
     return db.collection("post").doc(context.params.id).update({
       updateObj,
     });
