@@ -33,9 +33,7 @@ export default function FeedScreen({ route }) {
     });
   });
 
-  const feedItemHeight =
-    // Dimensions.get("window").height - useMaterialNavBarHeight(profile);
-    Dimensions.get("window").height;
+  const feedItemHeight = Dimensions.get("window").height;
   const renderItem = ({ item }) => {
     return (
       <View

@@ -39,7 +39,7 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
   };
 
   const stop = async () => {
-    if (ref.current == null) return;
+    // if (ref.current == null) return;
     const status = await ref.current.getStatusAsync();
     if (!status?.isPlaying) return;
     try {
@@ -79,8 +79,8 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
         posterStyle={{ resizeMode: "cover", height: "100%" }}
         shouldPlay={mute}
         source={{
-          // uri: item.media[0],
-          uri: null,
+          uri: item.media[0],
+          // uri: null,
         }}
       />
     </>

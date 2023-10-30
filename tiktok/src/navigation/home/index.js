@@ -18,6 +18,7 @@ export default function HomeScreen() {
   };
   return (
     <Tab.Navigator
+      // detachInactiveScreens
       labeled={false}
       shifting={false}
       inactiveColor='lightgreen'

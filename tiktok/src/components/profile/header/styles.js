@@ -74,6 +74,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "grey",
   },
+  editButtonContainer: {
+    paddingTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  setting: {
+    paddingRight: 20,
+  },
 });
 
 export default styles;

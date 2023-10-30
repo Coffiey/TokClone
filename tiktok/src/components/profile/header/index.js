@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import styles from "./styles";
 import { Avatar } from "react-native-paper";
+import { Ionicons } from "@expo/vector-icons";
 import { buttonStyles } from "../../../styles";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -97,12 +98,24 @@ export default function ProfileHeader({ user }) {
           </View>
         </View>
         {auth.currentUser.uid === user.uid ? (
-          <TouchableOpacity
-            style={buttonStyles.greyOutlineButton}
-            onPress={() => navigation.navigate("editProfile")}
-          >
-            <Text style={buttonStyles.greyOutlineButtonText}>EDIT Profile</Text>
-          </TouchableOpacity>
+          <View style={styles.editButtonContainer}>
+            <TouchableOpacity
+              style={buttonStyles.greyOutlineButton}
+              onPress={() => navigation.navigate("editProfile")}
+            >
+              <Text style={buttonStyles.greyOutlineButtonText}>Edit Page</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.setting}
+              onPress={() => navigation.navigate("editProfile")}
+            >
+              <Ionicons
+                name='settings-sharp'
+                size={24}
+                color='black'
+              />
+            </TouchableOpacity>
+          </View>
         ) : (
           renderFollowButton()
         )}
