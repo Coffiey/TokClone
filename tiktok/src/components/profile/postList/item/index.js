@@ -9,7 +9,7 @@ export default function ProfilePostListItem({ item }) {
     <TouchableOpacity
       style={styles.container}
       onPress={() =>
-        navigate.navigate("userPost", { creator: item.creator, profile: true })
+        navigate.navigate("userPosts", { creator: item.creator, profile: true })
       }
     >
       <Image

@@ -26,7 +26,7 @@ const FeedNavigation = () => {
           initialParams={{ setCurrentUserProfileItemView, profile: false }}
         />
         <Screen
-          name='feedList'
+          name='feedProfile'
           component={ProfileScreen}
           initialParams={{ initialUserId: null }}
         />

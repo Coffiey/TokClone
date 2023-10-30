@@ -60,7 +60,7 @@ export const getUserById = (id) =>
     const userDocRef = doc(collection(firestore, "user"), id);
     getDoc(userDocRef)
       .then((res) => {
-        resolve(res.exists ? res.data() : null);
+        resolve(res.exists() ? res.data() : null);
       })
       .catch(() => reject());
   });

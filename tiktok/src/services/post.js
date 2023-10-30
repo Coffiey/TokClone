@@ -9,6 +9,7 @@ import {
   doc,
   addDoc,
   serverTimestamp,
+  where,
 } from "firebase/firestore";
 import { firestore } from "../../App";
 
@@ -87,21 +88,19 @@ export const clearCommentListner = () => {
   }
 };
 
-export const getPostsByUserId =
-  (uid = auth.currentUser.uid) =>
-  (dispatch) =>
-    new Promise((resolve, reject) => {
-      const dataQuery = query(
-        collection(firestore, "post"),
-        where("creator", "==", uid),
-        orderBy("creation", "desc")
-      );
-      onSnapshot(dataQuery, (dataArray) => {
-        const data = dataArray.docs.map((doc) => {
-          const data = doc.data();
-          const id = doc.id;
-          return { id, ...data };
-        });
-        resolve(data);
+export const getPostsByUserId = (uid = auth.currentUser.uid) =>
+  new Promise((resolve, reject) => {
+    const dataQuery = query(
+      collection(firestore, "post"),
+      where("creator", "==", uid),
+      orderBy("creation", "desc")
+    );
+    onSnapshot(dataQuery, (dataArray) => {
+      const data = dataArray.docs.map((doc) => {
+        const data = doc.data();
+        const id = doc.id;
+        return { id, ...data };
       });
+      resolve(data);
     });
+  });

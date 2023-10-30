@@ -12,7 +12,7 @@ import { useFollowingMutation } from "../../../hooks/useFollowingMutation";
 export default function ProfileHeader({ user }) {
   const auth = useSelector((state) => state.auth);
   const navigation = useNavigation();
-  const isFollowing = useFollowing(auth.currentUser.uid, user.uid).data();
+  const isFollowing = useFollowing(auth.currentUser.uid, user.uid).data;
   const isFollowingMutation = useFollowingMutation();
 
   const renderFollowButton = () => {

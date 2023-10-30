@@ -17,13 +17,21 @@ export default function HomeScreen() {
   };
   return (
     <Tab.Navigator
-      barStyle={{ backgroundColor: "black", height: 80 }}
+      barStyle={{
+        backgroundColor: "transparent",
+        height: 80,
+        marginTop: -80,
+      }}
       initialRouteName='feed'
+      activeColor='white'
+      inactiveColor='white'
     >
       <Tab.Screen
         name='feed'
         component={FeedNavigation}
         options={{
+          title: null,
+          tabBarColor: "green",
           tabBarIcon: ({ color }) => (
             <Feather
               name='home'
@@ -37,13 +45,16 @@ export default function HomeScreen() {
         name='Discover'
         component={SearchScreen}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Feather
-              name='search'
-              size={24}
-              color={color}
-            />
-          ),
+          tabBarIcon: (props) => {
+            console.log(props);
+            return (
+              <Feather
+                name='search'
+                size={24}
+                color={props.color}
+              />
+            );
+          },
         }}
       />
       <Tab.Screen

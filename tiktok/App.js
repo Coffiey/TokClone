@@ -15,7 +15,7 @@ import {
   useQueryClient,
   QueryClient,
 } from "react-query";
-// import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const app = initializeApp(firebaseSecret);
 const firestore = getFirestore(app);
@@ -34,13 +34,13 @@ const queryClient = new QueryClient({
 
 export default function App() {
   return (
-    // <GestureHandlerRootView style={{ flex: 1 }}>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Route />
-      </QueryClientProvider>
-    </Provider>
-    // </GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <Route />
+        </QueryClientProvider>
+      </Provider>
+    </GestureHandlerRootView>
   );
 }
 

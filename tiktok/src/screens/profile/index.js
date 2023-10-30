@@ -11,13 +11,17 @@ import { useUser } from "../../hooks/useUser";
 import { getPostsByUserId } from "../../services/post";
 
 export default function ProfileScreen({ route }) {
-  const { initalUserId } = route.params;
+  const { initialUserId } = route.params;
+
   const [userPosts, setUserPosts] = useState([]);
   let providerUserId = null;
   if (CurrentUserProfileItemInViewContext) {
     providerUserId = useContext(CurrentUserProfileItemInViewContext);
   }
-  const user = useUser(initalUserId ? initalUserId : providerUserId).data;
+  console.log("provide", providerUserId);
+  console.log("inital", initialUserId);
+
+  user = useUser(initialUserId ? initialUserId : providerUserId).data;
 
   useEffect(() => {
     if (user) {
@@ -28,13 +32,24 @@ export default function ProfileScreen({ route }) {
     <SafeAreaView style={styles.container}>
       {user && (
         <>
-          <ProfileNavBar user={currentUser} />
+          <ProfileNavBar user={user} />
           <ScrollView>
-            <ProfileHeader user={currentUser} />
+            <ProfileHeader user={user} />
             <ProfilePostList posts={userPosts} />
           </ScrollView>
         </>
       )}
     </SafeAreaView>
+    // <SafeAreaView style={styles.container}>
+    //   {user && (
+    //     <>
+    //       <ProfileNavBar user={user} />
+    //       <ScrollView>
+    //         <ProfileHeader user={user} />
+    //         <ProfilePostList posts={userPosts} />
+    //       </ScrollView>
+    //     </>
+    //   )}
+    // </SafeAreaView>
   );
 }

@@ -34,13 +34,13 @@ export default function FeedScreen({ route }) {
   });
 
   const feedItemHeight =
-    Dimensions.get("window").height - useMaterialNavBarHeight(profile);
-  const renderItem = ({ item, index }) => {
-    const backgroundColor = index % 2 ? "red" : "blue";
+    // Dimensions.get("window").height - useMaterialNavBarHeight(profile);
+    Dimensions.get("window").height;
+  const renderItem = ({ item }) => {
     return (
       <View
         style={{
-          backgroundColor: backgroundColor,
+          backgroundColor: "black",
           height: feedItemHeight,
         }}
       >

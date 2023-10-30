@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 0,
+    bottom: 60,
     width: Dimensions.get("window").width,
     zIndex: 100,
     paddingLeft: 20,
