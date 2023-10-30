@@ -14,6 +14,7 @@ export default function ProfileHeader({ user }) {
   const navigation = useNavigation();
   const isFollowing = useFollowing(auth.currentUser.uid, user.uid).data;
   const isFollowingMutation = useFollowingMutation();
+  const backgroundBlank = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const renderFollowButton = () => {
     if (isFollowing) {
@@ -52,7 +53,18 @@ export default function ProfileHeader({ user }) {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.bannerContainer}></View>
+      <View style={styles.bannerContainer}>
+        {backgroundBlank.map((_, index) => {
+          return (
+            <View
+              style={[
+                styles.backgroundBLank,
+                { backgroundColor: index % 2 ? "white" : "#90e4c1" },
+              ]}
+            ></View>
+          );
+        })}
+      </View>
       <View style={styles.infoContainer}>
         {auth.currentUser.photoURL ? (
           <Image
@@ -68,19 +80,20 @@ export default function ProfileHeader({ user }) {
             icon={"account"}
           />
         )}
-        <Text style={styles.emailText}>{user.email}</Text>
-        <View style={styles.counterContianer}>
-          <View style={styles.counterItemContainer}>
-            <Text style={styles.counterNumberText}>0</Text>
-            <Text style={styles.counterLabelText}>Following</Text>
+        <Text style={styles.dispalyName}>{user.displayName}</Text>
+        <View style={styles.infoSubContainer}>
+          <View style={styles.nameContainer}>
+            <Text style={styles.emailText}>{user.email}</Text>
           </View>
-          <View style={styles.counterItemContainer}>
-            <Text style={styles.counterNumberText}>0</Text>
-            <Text style={styles.counterLabelText}>Followers</Text>
-          </View>
-          <View style={styles.counterItemContainer}>
-            <Text style={styles.counterNumberText}>0</Text>
-            <Text style={styles.counterLabelText}>Likes</Text>
+          <View style={styles.counterContianer}>
+            <View style={styles.counterItemContainer}>
+              <Text style={styles.counterNumberText}>0</Text>
+              <Text style={styles.counterLabelText}>Following</Text>
+            </View>
+            <View style={styles.counterItemContainer}>
+              <Text style={styles.counterNumberText}>2</Text>
+              <Text style={styles.counterLabelText}>Followers</Text>
+            </View>
           </View>
         </View>
         {auth.currentUser.uid === user.uid ? (
