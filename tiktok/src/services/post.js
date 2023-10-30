@@ -17,6 +17,7 @@ let commentListerInstance = null;
 
 export const getFeed = () =>
   new Promise((resolve, reject) => {
+    console.log("getFeed");
     const dataQuery = query(
       collection(firestore, "post"),
       orderBy("creation", "desc")
@@ -33,6 +34,7 @@ export const getFeed = () =>
 
 export const getLikeById = (postId, uid) =>
   new Promise((resolve, reject) => {
+    console.log("getLikeById");
     const userDocRef = doc(firestore, "post", postId, "likes", uid);
     getDoc(userDocRef)
       .then((res) => {
@@ -43,6 +45,7 @@ export const getLikeById = (postId, uid) =>
 
 export const updateLike = (postId, uid, currentLikeState) =>
   new Promise((resolve, reject) => {
+    console.log("updateLike");
     if (currentLikeState) {
       const userDocRef = doc(
         collection(firestore, "post"),
@@ -58,6 +61,7 @@ export const updateLike = (postId, uid, currentLikeState) =>
   });
 
 export const addComment = (postId, creator, comment) => {
+  console.log("addComment");
   const userDocRef = collection(firestore, "post", postId, "comments");
   addDoc(userDocRef, { creator, comment, creation: serverTimestamp() }).catch(
     () => reject()
@@ -65,6 +69,7 @@ export const addComment = (postId, creator, comment) => {
 };
 
 export const commentListner = (postId, setCommentList) => {
+  console.log("commentListner");
   const dataQuery = query(
     collection(firestore, "post", postId, "comments"),
     orderBy("creation", "desc")
@@ -90,6 +95,7 @@ export const clearCommentListner = () => {
 
 export const getPostsByUserId = (uid = auth.currentUser.uid) =>
   new Promise((resolve, reject) => {
+    console.log("getPostsByUserId");
     const dataQuery = query(
       collection(firestore, "post"),
       where("creator", "==", uid),

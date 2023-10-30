@@ -42,21 +42,22 @@ export const createPost = (description, video, thumbnail) => (dispatch) =>
       .catch(() => reject());
   });
 
-export const getPostsByUser =
-  (uid = auth.currentUser.uid) =>
-  (dispatch) =>
-    new Promise((resolve, reject) => {
-      const dataQuery = query(
-        collection(firestore, "post"),
-        where("creator", "==", uid),
-        orderBy("creation", "desc")
-      );
-      onSnapshot(dataQuery, (dataArray) => {
-        const data = dataArray.docs.map((doc) => {
-          const data = doc.data();
-          const id = doc.id;
-          return { id, ...data };
-        });
-        dispatch({ type: CURRENT_USER_POSTS_UPDATE, currentUserPosts: data });
-      });
-    });
+// export const getPostsByUser =
+//   (uid = auth.currentUser.uid) =>
+//   (dispatch) =>
+//     new Promise((resolve, reject) => {
+//       console.log("getPostsByUser");
+//       const dataQuery = query(
+//         collection(firestore, "post"),
+//         where("creator", "==", uid),
+//         orderBy("creation", "desc")
+//       );
+//       onSnapshot(dataQuery, (dataArray) => {
+//         const data = dataArray.docs.map((doc) => {
+//           const data = doc.data();
+//           const id = doc.id;
+//           return { id, ...data };
+//         });
+//         dispatch({ type: CURRENT_USER_POSTS_UPDATE, currentUserPosts: data });
+//       });
+//     });

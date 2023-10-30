@@ -13,6 +13,7 @@ import {
 
 export const saveUserProfileImage = (image) =>
   new Promise((resolve, reject) => {
+    console.log("saveUserProfileImage");
     saveMediaToStorage(image, `profileImage/${auth.currentUser.uid}`)
       .then((res) =>
         updateDoc(doc(firestore, "user", auth.currentUser.uid), {
@@ -25,6 +26,7 @@ export const saveUserProfileImage = (image) =>
 
 export const saveUserField = (field, value) =>
   new Promise((resolve, reject) => {
+    console.log("saveUserField");
     const obj = {};
     obj[field] = value;
     updateDoc(doc(firestore, "user", auth.currentUser.uid), obj)
@@ -35,6 +37,7 @@ export const saveUserField = (field, value) =>
 
 export const queryUserByEmail = (email) =>
   new Promise((resolve, reject) => {
+    console.log("queryUserByEmail");
     if (email === "") {
       resolve([]);
     } else {
@@ -57,6 +60,7 @@ export const queryUserByEmail = (email) =>
 
 export const getUserById = (id) =>
   new Promise((resolve, reject) => {
+    console.log("getUserById");
     const userDocRef = doc(collection(firestore, "user"), id);
     getDoc(userDocRef)
       .then((res) => {
@@ -67,6 +71,7 @@ export const getUserById = (id) =>
 
 export const getIsFollowing = (userId, otherUserId) =>
   new Promise((resolve, reject) => {
+    console.log("getIsFollowing");
     const userDocRef = doc(firestore, "post", userId, "following", otherUserId);
     getDoc(userDocRef)
       .then((res) => {
@@ -77,6 +82,7 @@ export const getIsFollowing = (userId, otherUserId) =>
 
 export const changeFollowingState = ({ otherUserId, isFollowing }) =>
   new Promise((resolve, reject) => {
+    console.log("changeFollowingState");
     if (isFollowing) {
       const userDocRef = doc(
         firestore,

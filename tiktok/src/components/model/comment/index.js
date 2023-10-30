@@ -30,7 +30,6 @@ const CommentModel = ({ post }) => {
   const renderItem = ({ item }) => {
     return <CommentItem item={item} />;
   };
-  console.log(commentList);
   const handleCommentSend = async () => {
     if (comment.length == 0) return;
     await addComment(post.id, currentUser.uid, comment);

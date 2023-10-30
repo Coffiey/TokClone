@@ -20,6 +20,7 @@ export const userAuthStateListner = () => (dispatch) => {
 };
 
 export const getCurrentUserData = () => (dispatch) => {
+  console.log("getCurrentUserData");
   const userDocRef = doc(collection(firestore, "user"), auth.currentUser.uid);
   onSnapshot(userDocRef, (res) => {
     if (res.exists) {
@@ -35,6 +36,7 @@ export const getCurrentUserData = () => (dispatch) => {
 
 export const login = (email, password) => (dispatch) =>
   new Promise((resolve, reject) => {
+    console.log("login");
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         resolve();
@@ -46,6 +48,7 @@ export const login = (email, password) => (dispatch) =>
 
 export const register = (email, password) => (dispatch) =>
   new Promise((resolve, reject) => {
+    console.log("register");
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         resolve();

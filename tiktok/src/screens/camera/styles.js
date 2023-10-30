@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   bottomBar: {
     display: "flex",
     position: "absolute",
-    bottom: 0,
+    bottom: 50,
     flexDirection: "row",
     marginBottom: 30,
     left: "50%",

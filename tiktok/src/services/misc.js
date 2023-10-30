@@ -3,6 +3,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const saveMediaToStorage = async (media, path) =>
   new Promise((resolve, reject) => {
+    console.log("saveMediaToStorage");
     const fileRef = ref(storage, path);
     fetch(media)
       .then((response) => response.blob())

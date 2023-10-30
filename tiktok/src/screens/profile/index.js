@@ -18,8 +18,6 @@ export default function ProfileScreen({ route }) {
   if (CurrentUserProfileItemInViewContext) {
     providerUserId = useContext(CurrentUserProfileItemInViewContext);
   }
-  console.log("provide", providerUserId);
-  console.log("inital", initialUserId);
 
   user = useUser(initialUserId ? initialUserId : providerUserId).data;
 

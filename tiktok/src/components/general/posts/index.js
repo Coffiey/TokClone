@@ -1,11 +1,18 @@
 import { View, Text } from "react-native";
-import { useRef, forwardRef, useImperativeHandle, useEffect } from "react";
+import {
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+  useState,
+} from "react";
 import styles from "./styles";
 import { ResizeMode, Video } from "expo-av";
 import { useUser } from "../../../hooks/useUser";
 import PostSingleOverlay from "./overlay";
 
 export const PostSingle = forwardRef(({ item }, parentRef) => {
+  const [mute, setMute] = useState(false);
   const ref = useRef(null);
   const user = useUser(item.creator).data;
   useImperativeHandle(parentRef, () => ({
@@ -56,6 +63,8 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
       <PostSingleOverlay
         user={user}
         post={item}
+        setMute={setMute}
+        mute={mute}
       />
 
       <Video
@@ -63,11 +72,12 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
         style={styles.Video}
         resizeMode={ResizeMode.COVER}
         isLooping
+        isMuted={mute}
         usePoster={{
           uri: item.media[1],
         }}
         posterStyle={{ resizeMode: "cover", height: "100%" }}
-        shouldPlay={true}
+        shouldPlay={mute}
         source={{
           uri: item.media[0],
         }}

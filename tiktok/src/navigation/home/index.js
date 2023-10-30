@@ -5,9 +5,10 @@ import { Feather } from "@expo/vector-icons";
 import CameraScreen from "../../screens/camera";
 import ProfileScreen from "../../screens/profile";
 import SearchScreen from "../../screens/search";
-import FeedScreen from "../../screens/feed";
 import FeedNavigation from "../feed";
 import { auth } from "../../../App";
+
+// import CustomTabBar from "./customTabBarHook";
 
 export default function HomeScreen() {
   const Tab = createMaterialBottomTabNavigator();
@@ -17,21 +18,21 @@ export default function HomeScreen() {
   };
   return (
     <Tab.Navigator
+      labeled={false}
+      shifting={false}
+      inactiveColor='lightgreen'
+      activeColor='white'
       barStyle={{
         backgroundColor: "transparent",
         height: 80,
         marginTop: -80,
       }}
-      initialRouteName='feed'
-      activeColor='white'
-      inactiveColor='white'
     >
       <Tab.Screen
         name='feed'
         component={FeedNavigation}
         options={{
-          title: null,
-          tabBarColor: "green",
+          tabBarLabel: "feed",
           tabBarIcon: ({ color }) => (
             <Feather
               name='home'
@@ -45,8 +46,8 @@ export default function HomeScreen() {
         name='Discover'
         component={SearchScreen}
         options={{
+          tabBarLabel: "Discover",
           tabBarIcon: (props) => {
-            console.log(props);
             return (
               <Feather
                 name='search'
@@ -61,6 +62,7 @@ export default function HomeScreen() {
         name='camera'
         component={CameraScreen}
         options={{
+          tabBarLabel: "camera",
           tabBarIcon: ({ color }) => (
             <Feather
               name='plus-square'
@@ -74,6 +76,7 @@ export default function HomeScreen() {
         name='inbox'
         component={Empty}
         options={{
+          tabBarLabel: "inbox",
           tabBarIcon: ({ color }) => (
             <Feather
               name='message-square'
@@ -87,6 +90,7 @@ export default function HomeScreen() {
         name='me'
         component={ProfileScreen}
         options={{
+          tabBarLabel: "feed",
           tabBarIcon: ({ color }) => (
             <Feather
               name='user'

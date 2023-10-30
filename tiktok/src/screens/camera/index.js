@@ -54,7 +54,6 @@ export default function CameraScreen() {
 
   const recordVideo = async (ref) => {
     if (ref) {
-      console.log(ref);
       try {
         const options = {
           maxDuration: 20,
@@ -94,7 +93,7 @@ export default function CameraScreen() {
       });
       return uri;
     } catch (e) {
-      console.warn("😎", e);
+      console.warn(e);
     }
   };
 
