@@ -1,16 +1,38 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 20,
-    alignItems: "center",
-    paddingHorizontal: 50,
     borderBottomWidth: 1,
     borderColor: "lightgrey",
+    backgroundColor: "green",
+  },
+  bannerContainer: {
+    height: (Dimensions.get("window").height - 80) / 4,
+  },
+  infoContainer: {
+    alignItems: "start",
+    backgroundColor: "red",
+    width: Dimensions.get("window").width,
   },
   counterContianer: {
     flexDirection: "row",
     paddingBottom: 20,
+  },
+  avatar: {
+    width: 80,
+    height: 80,
+    borderColor: "white",
+    borderWidth: 4,
+    borderRadius: 40,
+    marginLeft: 15,
+    marginTop: -55,
+  },
+  IconAvatar: {
+    borderColor: "white",
+    borderWidth: 4,
+    borderRadius: 40,
+    marginLeft: 25,
+    marginTop: -55,
   },
   emailText: {
     padding: 20,

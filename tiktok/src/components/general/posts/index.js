@@ -79,7 +79,8 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
         posterStyle={{ resizeMode: "cover", height: "100%" }}
         shouldPlay={mute}
         source={{
-          uri: item.media[0],
+          // uri: item.media[0],
+          uri: null,
         }}
       />
     </>
