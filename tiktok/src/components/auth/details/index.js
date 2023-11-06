@@ -12,8 +12,8 @@ export default function AuthDetails(props) {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const handleLogin = () => {
-    console.log("clicked");
+  const handleLogin = (e) => {
+    e.preventDefault();
     dispatch(login(email, password))
       .then(() => {
         console.log("Log In Successful");
@@ -23,14 +23,14 @@ export default function AuthDetails(props) {
       });
   };
 
-  const handleRegister = () => {
-    console.log("clicked");
+  const handleRegister = (e) => {
+    e.preventDefault();
     dispatch(register(email, password))
       .then(() => {
         console.log("Registration Successful");
       })
-      .catch((err) => {
-        console.log("Registration Unsuccessful", err);
+      .catch(() => {
+        console.log("Registration Unsuccessful");
       });
   };
 
@@ -57,7 +57,7 @@ export default function AuthDetails(props) {
       <TouchableOpacity style={styles.button}>
         <Text
           style={styles.buttonText}
-          onPress={() => (authPage ? handleRegister() : handleLogin())}
+          onPress={(e) => (authPage ? handleRegister(e) : handleLogin(e))}
         >
           {authPage ? "Sign Up" : "Sign In"}
         </Text>

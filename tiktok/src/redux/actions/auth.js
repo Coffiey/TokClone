@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { collection, doc, onSnapshot } from "firebase/firestore";
+import { connectAuthEmulator } from "firebase/auth";
 import { auth, firestore } from "../../../App";
 import { USER_STATE_CHANGE } from "../constants";
 import { getPostsByUser } from "./post";
@@ -48,12 +49,15 @@ export const login = (email, password) => (dispatch) =>
 
 export const register = (email, password) => (dispatch) =>
   new Promise((resolve, reject) => {
-    console.log("register");
+    console.log(email, password);
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         resolve();
       })
-      .catch(() => {
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
         reject();
       });
   });

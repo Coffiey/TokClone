@@ -1,44 +1,56 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { Fontisto } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import CameraScreen from "../../screens/camera";
 import ProfileScreen from "../../screens/profile";
 import SearchScreen from "../../screens/search";
 import FeedNavigation from "../feed";
 import { auth } from "../../../App";
 
-// import CustomTabBar from "./customTabBarHook";
+import CustomTabBar from "./customTabBarHook";
 
 export default function HomeScreen() {
-  const Tab = createMaterialBottomTabNavigator();
+  const Tab = createBottomTabNavigator();
 
   const Empty = () => {
     return <View></View>;
   };
   return (
     <Tab.Navigator
-      // detachInactiveScreens
-      labeled={false}
-      shifting={false}
-      inactiveColor='lightgreen'
-      activeColor='white'
-      barStyle={{
-        backgroundColor: "transparent",
-        height: 80,
-        marginTop: -80,
-      }}
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          height: 80,
+          paddingTop: 10,
+          backgroundColor: "transparent",
+          marginBottom: -2,
+          marginHorizontal: -5,
+          shadowColor: "transparent",
+          position: "absolute",
+          borderWidth: 0,
+          borderColor: "transparent",
+          elevation: 5,
+        },
+      })}
     >
       <Tab.Screen
         name='feed'
         component={FeedNavigation}
         options={{
-          tabBarLabel: "feed",
-          tabBarIcon: ({ color }) => (
-            <Feather
+          tabBarIcon: ({ focused }) => (
+            <Entypo
               name='home'
               size={24}
-              color={color}
+              color={focused ? "white" : "#D3D3D3"}
+              style={{ padding: 12, borderRadius: 24 }}
+              backgroundColor={focused ? "#90e4c1" : "transparent"}
             />
           ),
         }}
@@ -48,12 +60,14 @@ export default function HomeScreen() {
         component={SearchScreen}
         options={{
           tabBarLabel: "Discover",
-          tabBarIcon: (props) => {
+          tabBarIcon: ({ focused }) => {
             return (
               <Feather
                 name='search'
                 size={24}
-                color={props.color}
+                color={focused ? "white" : "#D3D3D3"}
+                style={{ padding: 12, borderRadius: 24 }}
+                backgroundColor={focused ? "#90e4c1" : "transparent"}
               />
             );
           },
@@ -64,13 +78,17 @@ export default function HomeScreen() {
         component={CameraScreen}
         options={{
           tabBarLabel: "camera",
-          tabBarIcon: ({ color }) => (
-            <Feather
-              name='plus-square'
-              size={24}
-              color={color}
-            />
-          ),
+          tabBarIcon: ({ focused }) => {
+            return (
+              <Fontisto
+                name='camera'
+                size={24}
+                color={focused ? "white" : "#D3D3D3"}
+                style={{ padding: 12, borderRadius: 24 }}
+                backgroundColor={focused ? "#90e4c1" : "transparent"}
+              />
+            );
+          },
         }}
       />
       <Tab.Screen
@@ -78,11 +96,13 @@ export default function HomeScreen() {
         component={Empty}
         options={{
           tabBarLabel: "inbox",
-          tabBarIcon: ({ color }) => (
-            <Feather
-              name='message-square'
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome
+              name='bell'
               size={24}
-              color={color}
+              color={focused ? "white" : "#D3D3D3"}
+              style={{ padding: 12, borderRadius: 24 }}
+              backgroundColor={focused ? "#90e4c1" : "transparent"}
             />
           ),
         }}
@@ -92,11 +112,13 @@ export default function HomeScreen() {
         component={ProfileScreen}
         options={{
           tabBarLabel: "feed",
-          tabBarIcon: ({ color }) => (
-            <Feather
-              name='user'
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome5
+              name='user-alt'
               size={24}
-              color={color}
+              color={focused ? "white" : "#D3D3D3"}
+              style={{ padding: 12, borderRadius: 24 }}
+              backgroundColor={focused ? "#90e4c1" : "transparent"}
             />
           ),
         }}
