@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function NavBarGeneral({
   title = "navebarGeneral",
-  leftButton = { display: false },
+  leftButton = { display: true },
 }) {
   const naviagation = useNavigation();
   return (

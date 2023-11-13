@@ -30,11 +30,8 @@ export default function ProfileScreen({ route }) {
     <SafeAreaView style={styles.container}>
       {user && (
         <>
-          {/* <ScrollView> */}
-          {/* <ProfileNavBar user={user} /> */}
           <ProfileHeader user={user} />
           <ProfilePostList posts={userPosts} />
-          {/* </ScrollView> */}
         </>
       )}
     </SafeAreaView>

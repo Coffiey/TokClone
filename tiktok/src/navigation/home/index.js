@@ -1,6 +1,5 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -14,6 +13,7 @@ import FeedNavigation from "../feed";
 import { auth } from "../../../App";
 
 import CustomTabBar from "./customTabBarHook";
+import ChatScreen from "../../screens/chat/list";
 
 export default function HomeScreen() {
   const Tab = createBottomTabNavigator();
@@ -93,7 +93,7 @@ export default function HomeScreen() {
       />
       <Tab.Screen
         name='inbox'
-        component={Empty}
+        component={ChatScreen}
         options={{
           tabBarLabel: "inbox",
           tabBarIcon: ({ focused }) => (
