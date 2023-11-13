@@ -12,12 +12,12 @@ import SearchScreen from "../../screens/search";
 import FeedNavigation from "../feed";
 import { auth } from "../../../App";
 
-import CustomTabBar from "./customTabBarHook";
 import ChatScreen from "../../screens/chat/list";
+import { useChats } from "../../hooks/useChats";
 
 export default function HomeScreen() {
   const Tab = createBottomTabNavigator();
-
+  useChats();
   const Empty = () => {
     return <View></View>;
   };
