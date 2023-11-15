@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useCallback } from "react";
-import { chatListener } from "../services/chat";
+import { useEffect, useCallback, useState } from "react";
+import { chatListener, messageListener } from "../services/chat";
 import { setChats } from "../redux/actions/chat";
 
-export const useChats = () => {
+export const useMessages = (chatId) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((State) => State.auth);
-  const handleChatsChange = useCallback(
+  const [messages, setMessages] = useState([]);
+  const handleMessagesChange = useCallback(
     (change) => {
-      dispatch(
+      setMessages(
         setChats(change.docs.map((item) => ({ id: item.id, ...item.data() })))
       );
     },
@@ -18,10 +19,12 @@ export const useChats = () => {
   useEffect(() => {
     let listenerInstance;
     if (currentUser) {
-      listenerInstance = chatListener(handleChatsChange);
+      listenerInstance = messageListener(handleMessagesChange, chatId);
     }
     return () => {
       listenerInstance && listenerInstance();
     };
-  }, [handleChatsChange, currentUser]);
+  }, [handleMessagesChange, currentUser]);
+
+  return { messages };
 };

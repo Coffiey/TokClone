@@ -1,4 +1,12 @@
-import { query, orderBy, onSnapshot, where } from "firebase/firestore";
+import {
+  query,
+  orderBy,
+  onSnapshot,
+  where,
+  doc,
+  setDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { auth } from "../../App";
 
 export const chatListener = (listener) => {
@@ -9,5 +17,24 @@ export const chatListener = (listener) => {
   );
   onSnapshot(dataQuery, (change) => {
     listener(change);
+  });
+};
+
+export const messageListener = (listener, chatId) => {
+  const dataQuery = query(
+    collection(firestore, "chats", chatId, "messages"),
+    orderBy("creation", "desc")
+  );
+  onSnapshot(dataQuery, (change) => {
+    listener(change);
+  });
+};
+
+export const sendMessage = (chatId, message) => {
+  const docData = doc(collection(firestore, "chats", chatId, "messages"));
+  setDoc(docData, {
+    creator: auth.currentUser.ui,
+    message,
+    creation: serverTimestamp(),
   });
 };

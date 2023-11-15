@@ -13,9 +13,12 @@ const ChatScreen = () => {
   };
   return (
     <SafeAreaView>
-      <NavBarGeneral leftButton={{ display: fals }} />
+      <NavBarGeneral
+        leftButton={{ display: fals }}
+        title='Messages'
+      />
       <FlatList
-        data={chat}
+        data={chats}
         removeClippedSubviews
         renderItem={renderItem}
         keyExtractor={(item) => item.id}

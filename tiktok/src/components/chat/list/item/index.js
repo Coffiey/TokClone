@@ -3,14 +3,19 @@ import React from "react";
 import { useUser } from "../../../../hooks/useUser";
 import { auth } from "../../../../../App";
 import styles from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 const ChatListItem = ({ chat }) => {
   const { data: userData } = useUser(
     chat.members[0] === auth.currentUser.uid ? chat.members[1] : chat.members[0]
   );
   console.log(data);
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation("chatSingle", { chatId: chat.id })}
+    >
       <Image
         style={styles.image}
         source={{ uri: userData.photoUrl }}
