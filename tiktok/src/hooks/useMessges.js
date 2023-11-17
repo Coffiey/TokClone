@@ -3,10 +3,12 @@ import { useEffect, useCallback, useState } from "react";
 import { chatListener, messageListener } from "../services/chat";
 import { setChats } from "../redux/actions/chat";
 
-export const useMessages = (chatId) => {
+export const useMessages = (chatId, contactId) => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((State) => State.auth);
+  const currentUser = useSelector((State) => State.auth.currentUser);
+  const chats = useSelector((State) => State.chat.list);
   const [messages, setMessages] = useState([]);
+  const [chatIdInstance, setChatIdInstance] = useState(chatId);
   const handleMessagesChange = useCallback(
     (change) => {
       setMessages(
@@ -18,6 +20,9 @@ export const useMessages = (chatId) => {
 
   useEffect(() => {
     let listenerInstance;
+    if (!chatId) {
+      let chat = chats.find((item) => item.members.some(contactId));
+    }
     if (currentUser) {
       listenerInstance = messageListener(handleMessagesChange, chatId);
     }

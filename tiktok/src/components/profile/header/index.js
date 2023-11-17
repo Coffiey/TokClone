@@ -22,7 +22,9 @@ export default function ProfileHeader({ user }) {
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity
           style={buttonStyles.greyOutlineButton}
-          // onPress={() => navigation.navigate("editProfile")}
+          onPress={() =>
+            navigation.navigate("chatSingle", { contactId: user.uid })
+          }
         >
           <Text style={buttonStyles.greyOutlineButtonText}>Message</Text>
         </TouchableOpacity>
