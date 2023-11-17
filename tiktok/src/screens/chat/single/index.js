@@ -14,14 +14,14 @@ const ChatSingleScreen = ({ route }) => {
   const [message, setMessage] = useState("");
 
   // const currentUser = useSelector((state) => state.auth.currentUser);
-  const { messages } = useMessages(chatId, contactId);
+  const { messages, chatIdInstance } = useMessages(chatId, contactId);
 
   const renderItem = ({ item }) => {
     return <ChatSingleItem item={item} />;
   };
   const handleCommentSend = async () => {
     if (message.length == 0) return;
-    sendMessage(chatId, message);
+    sendMessage(chatIdInstance, message);
     setMessage("");
   };
   return (

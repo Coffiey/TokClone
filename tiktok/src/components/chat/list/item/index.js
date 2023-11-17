@@ -25,7 +25,9 @@ const ChatListItem = ({ chat }) => {
         <Text style={styles.lastMessage}>{chat.lastMessage}</Text>
       </View>
       <Text style={styles.date}>
-        {new Date(chat.lastUpdate.seconds * 1000).toISOString().slice(0, 10)}
+        {chat.lastUpdate
+          ? new Date(chat.lastUpdate.seconds * 1000).toISOString().slice(0, 10)
+          : "Now"}
       </Text>
     </TouchableOpacity>
   );

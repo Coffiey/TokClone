@@ -6,6 +6,7 @@ import {
   doc,
   setDoc,
   serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { auth } from "../../App";
 import { Portal } from "react-native-paper";
@@ -37,6 +38,11 @@ export const sendMessage = (chatId, message) => {
     creator: auth.currentUser.ui,
     message,
     creation: serverTimestamp(),
+  });
+  const updateData = doc(collection(firestore, "chats", chatId));
+  updateDoc(updateData, {
+    lastMessage: message,
+    lastUpdate: serverTimestamp(),
   });
 };
 

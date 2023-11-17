@@ -40,5 +40,5 @@ export const useMessages = (chatId, contactId) => {
     };
   }, [handleMessagesChange, currentUser]);
 
-  return { messages };
+  return { messages, chatIdInstance };
 };
