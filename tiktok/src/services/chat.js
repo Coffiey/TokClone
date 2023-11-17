@@ -8,6 +8,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { auth } from "../../App";
+import { Portal } from "react-native-paper";
 
 export const chatListener = (listener) => {
   const dataQuery = query(
@@ -38,3 +39,15 @@ export const sendMessage = (chatId, message) => {
     creation: serverTimestamp(),
   });
 };
+
+export const createChat = (contactId) =>
+  new Promise((resolve, reject) => {
+    const docData = doc(collection(firestore, "chats"));
+    setDoc(docData, {
+      lastMessage: "send first message",
+      lastUpdate: serverTimestamp(),
+      members: [contactId, auth.currentUser.uid],
+    });
+  })
+    .then(resolve)
+    .catch(reject);

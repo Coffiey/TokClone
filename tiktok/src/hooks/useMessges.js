@@ -21,7 +21,15 @@ export const useMessages = (chatId, contactId) => {
   useEffect(() => {
     let listenerInstance;
     if (!chatId) {
-      let chat = chats.find((item) => item.members.some(contactId));
+      let chat = chats.find((item) =>
+        item.members.some((member) => member === contactId)
+      );
+      if (chat) {
+        //set chat instance
+        setChatIdInstance(chat.id);
+      } else {
+        //create chat instance
+      }
     }
     if (currentUser) {
       listenerInstance = messageListener(handleMessagesChange, chatId);
