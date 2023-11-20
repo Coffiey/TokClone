@@ -8,6 +8,7 @@ import useMaterialNavBarHeight from "../../hooks/useMaterialNavBarHeight";
 export default function FeedScreen({ route }) {
   const { setCurrentUserProfileItemView, creator, profile } = route.params;
   const [post, setPosts] = useState([]);
+  const [countrySwitch, setCountrySwitch] = useState(true);
   useEffect(() => {
     if (profile) {
       getPostsByUserId(creator).then(setPosts);
@@ -43,6 +44,7 @@ export default function FeedScreen({ route }) {
         }}
       >
         <PostSingle
+          setCountrySwitch={setCountrySwitch}
           item={item}
           ref={(PostSingleRef) => {
             mediaRefs.current[item.id] = PostSingleRef;
@@ -54,6 +56,7 @@ export default function FeedScreen({ route }) {
   return (
     <View style={styles.container}>
       <FlatList
+        scrollEnabled={countrySwitch}
         pagingEnabled
         viewabilityConfig={{
           itemVisiblePercentThreshold: 90,

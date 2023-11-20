@@ -11,7 +11,13 @@ import { openCommentModel } from "../../../../redux/actions/model";
 import { useNavigation } from "@react-navigation/native";
 import CountryPicker from "./countryPicker";
 
-export default function PostSingleOverlay({ user, post, mute, setMute }) {
+export default function PostSingleOverlay({
+  user,
+  post,
+  mute,
+  setMute,
+  setCountrySwitch,
+}) {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -32,6 +38,8 @@ export default function PostSingleOverlay({ user, post, mute, setMute }) {
   }, []);
 
   const handleDisplayCountries = () => {
+    console.log(displayCountries);
+    setCountrySwitch(displayCountries);
     setDisplayCountries(!displayCountries);
   };
 

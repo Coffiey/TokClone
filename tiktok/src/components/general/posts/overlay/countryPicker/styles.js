@@ -14,11 +14,12 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     position: "absolute",
-    top: Dimensions.get("screen").height / 2 - 200,
+    top: Dimensions.get("screen").height / 2 - 150,
     left: Dimensions.get("window").width / 2 - 100,
     zIndex: 101,
     width: 200,
-    height: 300,
+    // height is calculated at 7 items at a height of 30 each (30*7 = 210) this will always display 7 itesm
+    height: 210,
     backgroundColor: "red",
     overflow: "hidden",
   },
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: "auto",
     width: 200,
+    height: 30,
   },
   countryButtonText: {
     textAlign: "center",
