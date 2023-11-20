@@ -9,12 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { throttle } from "throttle-debounce";
 import { openCommentModel } from "../../../../redux/actions/model";
 import { useNavigation } from "@react-navigation/native";
+import CountryPicker from "./countryPicker";
 
 export default function PostSingleOverlay({ user, post, mute, setMute }) {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const [displayCountries, setDisplayCountries] = useState(false);
   const [currentLikeState, setCurrentLikeState] = useState({
     state: false,
     counter: post.likesCount,
@@ -28,6 +30,10 @@ export default function PostSingleOverlay({ user, post, mute, setMute }) {
       });
     });
   }, []);
+
+  const handleDisplayCountries = () => {
+    setDisplayCountries(!displayCountries);
+  };
 
   const handleUpdateLike = useMemo(
     () =>
@@ -53,8 +59,12 @@ export default function PostSingleOverlay({ user, post, mute, setMute }) {
                 color={"black"}
                 size={18}
                 name='map'
+                onPress={handleDisplayCountries}
               />
             </TouchableOpacity>
+            {displayCountries && (
+              <CountryPicker handleDisplayCountries={handleDisplayCountries} />
+            )}
             <TouchableOpacity
               style={[styles.leftAction, styles.Volume]}
               onPress={() => setMute(!mute)}

@@ -9,7 +9,7 @@ import {
   updateDoc,
   collection,
 } from "firebase/firestore";
-import { auth } from "../../App";
+import { auth, firestore } from "../../App";
 
 export const chatListener = (listener) => {
   const dataQuery = query(
