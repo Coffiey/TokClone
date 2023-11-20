@@ -11,8 +11,6 @@ export const chat = (state = initialState, action) => {
         ...state,
         list: action.data,
       };
-    case CLEAR_MODEL:
-      return initialState;
     default:
       return state;
   }

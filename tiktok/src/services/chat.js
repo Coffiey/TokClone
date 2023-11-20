@@ -7,9 +7,9 @@ import {
   setDoc,
   serverTimestamp,
   updateDoc,
+  collection,
 } from "firebase/firestore";
 import { auth } from "../../App";
-import { Portal } from "react-native-paper";
 
 export const chatListener = (listener) => {
   const dataQuery = query(

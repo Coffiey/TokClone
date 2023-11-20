@@ -41,6 +41,7 @@
     "react-native-web": "~0.19.6",
     "react-query": "^3.39.3",
     "react-redux": "^8.1.2",
+    "react-select-country-list": "^2.2.3",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "throttle-debounce": "^5.0.0",
