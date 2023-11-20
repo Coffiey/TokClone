@@ -8,6 +8,7 @@ import {
 import React, { useState, useMemo, useRef } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import styles from "./styles";
 
 const CountryPicker = ({ handleDisplayCountries, options }) => {
@@ -55,7 +56,7 @@ const CountryPicker = ({ handleDisplayCountries, options }) => {
               size={24}
               color='black'
             />
-            <Text>{currentCountry}</Text>
+            <Text style={{ paddingHorizontal: 15 }}>{currentCountry}</Text>
             <TouchableOpacity onPress={() => setCurrentCountry(null)}>
               <Entypo
                 name='cross'
@@ -66,36 +67,51 @@ const CountryPicker = ({ handleDisplayCountries, options }) => {
           </View>
         )}
         <View style={styles.inputContainer}>
+          <Entypo
+            style={{ paddingHorizontal: 10 }}
+            name='magnifying-glass'
+            size={24}
+            color='black'
+          />
           <TextInput
             placeholder='Search...'
             value={value}
             onChangeText={HandleChangeText}
           />
-          {currentCountry && <Text>hello</Text>}
         </View>
-        <ScrollView
-          ref={scrollViewRef}
-          style={styles.scrollContainer}
-          contentOffset={{ y: 210 }}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={8}
-          onScroll={handleScroll}
+        <LinearGradient
+          colors={["rgba(0, 0, 0, 1)", "green", "green", "rgba(0, 0, 0, 1)"]}
+          style={styles.gradientContainer}
         >
-          {options &&
-            options.map((country) => {
-              return (
-                <TouchableOpacity
-                  style={styles.countryButton}
-                  onPress={() => {
-                    setCurrentCountry(country);
-                  }}
-                >
-                  <Text style={styles.countryButtonText}>{country}</Text>
-                </TouchableOpacity>
-              );
-            })}
-        </ScrollView>
+          <View>
+            <ScrollView
+              ref={scrollViewRef}
+              style={styles.scrollContainer}
+              contentOffset={{ y: 210 }}
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              scrollEventThrottle={8}
+              onScroll={handleScroll}
+            >
+              {options &&
+                options.map((country) => {
+                  return (
+                    <TouchableOpacity
+                      style={styles.countryButton}
+                      onPress={() => {
+                        setCurrentCountry(country);
+                        setTimeout(() => {
+                          handleDisplayCountries();
+                        }, 1000);
+                      }}
+                    >
+                      <Text style={styles.countryButtonText}>{country}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+            </ScrollView>
+          </View>
+        </LinearGradient>
       </View>
     </TouchableOpacity>
   );
