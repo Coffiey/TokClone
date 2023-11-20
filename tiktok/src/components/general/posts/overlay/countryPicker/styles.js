@@ -12,7 +12,18 @@ const styles = StyleSheet.create({
     height: Dimensions.get("screen").height,
     backgroundColor: "rgba(0,0,0,0.7)",
   },
-  subContainer: {
+  locationContainer: {
+    position: "absolute",
+    top: Dimensions.get("screen").height / 2 - 210,
+    left: Dimensions.get("window").width / 2 - 100,
+    zIndex: 102,
+    width: 200,
+    // height is calculated at 7 items at a height of 30 each (30*7 = 210) this will always display 7 itesm
+    height: 240,
+    backgroundColor: "green",
+    flexDirection: "row",
+  },
+  inputContainer: {
     position: "absolute",
     top: Dimensions.get("screen").height / 2 - 180,
     left: Dimensions.get("window").width / 2 - 100,
@@ -44,6 +55,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
   },
+  content: { height: 210 },
 });
 
 export default styles;

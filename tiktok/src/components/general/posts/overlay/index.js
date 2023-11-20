@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import React, { useState, useEffect, useMemo } from "react";
+import countryList from "react-select-country-list";
 import styles from "./styles";
 import { getLikeById, updateLike } from "../../../../services/post";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +22,12 @@ export default function PostSingleOverlay({
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
+  const optionsData = useMemo(() => countryList().getLabels(), []);
+  const options = [
+    ...optionsData.slice(-7),
+    ...optionsData,
+    ...optionsData.slice(0, 7),
+  ];
   const [displayCountries, setDisplayCountries] = useState(false);
   const [currentLikeState, setCurrentLikeState] = useState({
     state: false,
@@ -71,7 +77,10 @@ export default function PostSingleOverlay({
               />
             </TouchableOpacity>
             {displayCountries && (
-              <CountryPicker handleDisplayCountries={handleDisplayCountries} />
+              <CountryPicker
+                options={options}
+                handleDisplayCountries={handleDisplayCountries}
+              />
             )}
             <TouchableOpacity
               style={[styles.leftAction, styles.Volume]}
