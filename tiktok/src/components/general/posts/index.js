@@ -23,6 +23,7 @@ export const PostSingle = forwardRef(
     }));
 
     useEffect(() => {
+      console.log("number of Times Called", item);
       return () => {
         unload();
       };
@@ -79,7 +80,6 @@ export const PostSingle = forwardRef(
           //   uri: item.media[1],
           // }}
           posterStyle={{ resizeMode: "cover", height: "100%" }}
-          shouldPlay={mute}
           source={{
             // uri: item.media[0],
             uri: null,

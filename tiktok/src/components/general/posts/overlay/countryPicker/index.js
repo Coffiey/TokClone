@@ -79,39 +79,32 @@ const CountryPicker = ({ handleDisplayCountries, options }) => {
             onChangeText={HandleChangeText}
           />
         </View>
-        <LinearGradient
-          colors={["rgba(0, 0, 0, 1)", "green", "green", "rgba(0, 0, 0, 1)"]}
-          style={styles.gradientContainer}
+        <ScrollView
+          ref={scrollViewRef}
+          style={styles.scrollContainer}
+          contentOffset={{ y: 210 }}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={8}
+          onScroll={handleScroll}
         >
-          <View>
-            <ScrollView
-              ref={scrollViewRef}
-              style={styles.scrollContainer}
-              contentOffset={{ y: 210 }}
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              scrollEventThrottle={8}
-              onScroll={handleScroll}
-            >
-              {options &&
-                options.map((country) => {
-                  return (
-                    <TouchableOpacity
-                      style={styles.countryButton}
-                      onPress={() => {
-                        setCurrentCountry(country);
-                        setTimeout(() => {
-                          handleDisplayCountries();
-                        }, 1000);
-                      }}
-                    >
-                      <Text style={styles.countryButtonText}>{country}</Text>
-                    </TouchableOpacity>
-                  );
-                })}
-            </ScrollView>
-          </View>
-        </LinearGradient>
+          {options &&
+            options.map((country) => {
+              return (
+                <TouchableOpacity
+                  style={styles.countryButton}
+                  onPress={() => {
+                    setCurrentCountry(country);
+                    setTimeout(() => {
+                      handleDisplayCountries();
+                    }, 1000);
+                  }}
+                >
+                  <Text style={styles.countryButtonText}>{country}</Text>
+                </TouchableOpacity>
+              );
+            })}
+        </ScrollView>
       </View>
     </TouchableOpacity>
   );
