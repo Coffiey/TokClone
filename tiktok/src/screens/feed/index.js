@@ -3,7 +3,6 @@ import { useRef, useEffect, useState } from "react";
 import styles from "./styles";
 import PostSingle from "../../components/general/posts";
 import { getFeed, getPostsByUserId } from "../../services/post";
-import useMaterialNavBarHeight from "../../hooks/useMaterialNavBarHeight";
 
 export default function FeedScreen({ route }) {
   const { setCurrentUserProfileItemView, creator, profile } = route.params;

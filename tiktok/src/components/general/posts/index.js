@@ -23,7 +23,6 @@ export const PostSingle = forwardRef(
     }));
 
     useEffect(() => {
-      console.log("number of Times Called", item);
       return () => {
         unload();
       };

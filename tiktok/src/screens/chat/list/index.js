@@ -14,7 +14,7 @@ const ChatScreen = () => {
   return (
     <SafeAreaView>
       <NavBarGeneral
-        leftButton={{ display: fals }}
+        leftButton={{ display: false }}
         title='Messages'
       />
       <FlatList

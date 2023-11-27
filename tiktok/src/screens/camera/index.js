@@ -43,6 +43,7 @@ export default function CameraScreen() {
             mediaType: "photo",
           });
           setGalleryItem(userGalleryMedia.assets);
+          console.log(galleryItems[0].uri);
         } catch (error) {
           console.error("Error accessing media library:", error);
           // Handle the error as needed
@@ -54,6 +55,7 @@ export default function CameraScreen() {
 
   const recordVideo = async (ref) => {
     if (ref) {
+      console.log(ref);
       try {
         const options = {
           maxDuration: 20,

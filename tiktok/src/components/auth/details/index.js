@@ -13,6 +13,7 @@ export default function AuthDetails(props) {
 
   const dispatch = useDispatch();
   const handleLogin = (e) => {
+    console.log("clicked");
     e.preventDefault();
     dispatch(login(email, password))
       .then(() => {

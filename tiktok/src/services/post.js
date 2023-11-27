@@ -4,6 +4,7 @@ import {
   orderBy,
   onSnapshot,
   getDoc,
+  getDocs,
   setDoc,
   deleteDoc,
   doc,
@@ -95,13 +96,13 @@ export const clearCommentListner = () => {
 
 export const getPostsByUserId = (uid = auth.currentUser.uid) =>
   new Promise((resolve, reject) => {
-    console.log("getPostsByUserId");
+    console.log("getPostsByUserId", uid);
     const dataQuery = query(
       collection(firestore, "post"),
       where("creator", "==", uid),
       orderBy("creation", "desc")
     );
-    onSnapshot(dataQuery, (dataArray) => {
+    getDocs(dataQuery).then((dataArray) => {
       const data = dataArray.docs.map((doc) => {
         const data = doc.data();
         const id = doc.id;
