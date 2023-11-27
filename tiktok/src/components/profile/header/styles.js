@@ -66,6 +66,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
+  logoutButton: {
+    position: "absolute",
+    top: 10,
+    left: 10,
+    zIndex: 105,
+  },
   counterNumberText: {
     fontWeight: "bold",
     fontSize: 18,

@@ -1,4 +1,4 @@
-import { USER_STATE_CHANGE } from "../constants";
+import { USER_STATE_CHANGE, LOG_OUT } from "../constants";
 
 const initialState = {
   currentUser: null,
@@ -12,6 +12,12 @@ export const auth = (state = initialState, action) => {
         ...state,
         currentUser: action.currentUser,
         loaded: action.loaded,
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        currentUser: null,
+        loaded: true,
       };
     default:
       return state;

@@ -26,6 +26,7 @@ export default function AuthDetails(props) {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    console.log("clicked");
     dispatch(register(email, password))
       .then(() => {
         console.log("Registration Successful");

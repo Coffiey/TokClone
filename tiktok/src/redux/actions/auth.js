@@ -2,11 +2,12 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { connectAuthEmulator } from "firebase/auth";
 import { auth, firestore } from "../../../App";
-import { USER_STATE_CHANGE } from "../constants";
+import { LOG_OUT, USER_STATE_CHANGE } from "../constants";
 import { getPostsByUser } from "./post";
 
 export const userAuthStateListner = () => (dispatch) => {
@@ -21,7 +22,6 @@ export const userAuthStateListner = () => (dispatch) => {
 };
 
 export const getCurrentUserData = () => (dispatch) => {
-  console.log("getCurrentUserData");
   const userDocRef = doc(collection(firestore, "user"), auth.currentUser.uid);
   onSnapshot(userDocRef, (res) => {
     if (res.exists) {
@@ -37,7 +37,6 @@ export const getCurrentUserData = () => (dispatch) => {
 
 export const login = (email, password) => (dispatch) =>
   new Promise((resolve, reject) => {
-    console.log("login");
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         resolve();
@@ -47,9 +46,21 @@ export const login = (email, password) => (dispatch) =>
       });
   });
 
+export const logout = () => (dispatch) =>
+  new Promise((resolve, reject) => {
+    signOut(auth)
+      .then(() => {
+        dispatch({
+          type: LOG_OUT,
+        });
+      })
+      .catch(() => {
+        reject();
+      });
+  });
+
 export const register = (email, password) => (dispatch) =>
   new Promise((resolve, reject) => {
-    console.log(email, password);
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         resolve();
