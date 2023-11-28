@@ -10,7 +10,8 @@ export default function FeedScreen({ route }) {
   const [countrySwitch, setCountrySwitch] = useState(true);
   useEffect(() => {
     if (profile) {
-      getPostsByUserId(creator).then(setPosts);
+      // getPostsByUserId(creator).then(setPosts);
+      getFeed().then(setPosts);
     } else {
       getFeed().then(setPosts);
     }

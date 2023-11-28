@@ -7,6 +7,7 @@ import {
   where,
   getDocs,
   collection,
+  deleteDoc,
   getDoc,
   setDoc,
 } from "firebase/firestore";
@@ -72,7 +73,7 @@ export const getUserById = (id) =>
 export const getIsFollowing = (userId, otherUserId) =>
   new Promise((resolve, reject) => {
     console.log("getIsFollowing");
-    const userDocRef = doc(firestore, "post", userId, "following", otherUserId);
+    const userDocRef = doc(firestore, "user", userId, "following", otherUserId);
     getDoc(userDocRef)
       .then((res) => {
         resolve(res.exists());
@@ -82,11 +83,10 @@ export const getIsFollowing = (userId, otherUserId) =>
 
 export const changeFollowingState = ({ otherUserId, isFollowing }) =>
   new Promise((resolve, reject) => {
-    console.log("changeFollowingState");
     if (isFollowing) {
       const userDocRef = doc(
         firestore,
-        "post",
+        "user",
         auth.currentUser.uid,
         "following",
         otherUserId
@@ -95,10 +95,10 @@ export const changeFollowingState = ({ otherUserId, isFollowing }) =>
     } else {
       const userDocRef = doc(
         firestore,
-        "post",
+        "user",
         auth.currentUser.uid,
-        "likes",
-        uid
+        "following",
+        otherUserId
       );
       setDoc(userDocRef, {}).catch(() => reject());
     }

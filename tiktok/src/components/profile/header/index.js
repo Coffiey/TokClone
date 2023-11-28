@@ -19,7 +19,6 @@ export default function ProfileHeader({ user }) {
   const isFollowing = useFollowing(auth.currentUser.uid, user.uid).data;
   const isFollowingMutation = useFollowingMutation();
   const backgroundBlank = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  console.log(user.uid);
   const handleLogOut = () => {
     dispatch(logout());
   };
@@ -27,7 +26,7 @@ export default function ProfileHeader({ user }) {
   const renderFollowButton = () => {
     if (isFollowing) {
       return (
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
           <TouchableOpacity
             style={buttonStyles.greyOutlineButton}
             onPress={() =>
@@ -37,7 +36,7 @@ export default function ProfileHeader({ user }) {
             <Text style={buttonStyles.greyOutlineButtonText}>Message</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={buttonStyles.filledButton}
+            style={buttonStyles.unfollowButton}
             onPress={() =>
               isFollowingMutation.mutate({ otherUserId: user.uid, isFollowing })
             }
@@ -52,14 +51,16 @@ export default function ProfileHeader({ user }) {
       );
     } else {
       return (
-        <TouchableOpacity
-          style={buttonStyles.filledButton}
-          onPress={() =>
-            isFollowingMutation.mutate({ userId: user.uid, isFollowing })
-          }
-        >
-          <Text style={buttonStyles.filledButtonText}>Follow</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <TouchableOpacity
+            style={buttonStyles.filledButton}
+            onPress={() =>
+              isFollowingMutation.mutate({ otherUserId: user.uid, isFollowing })
+            }
+          >
+            <Text style={buttonStyles.filledButtonText}>Follow</Text>
+          </TouchableOpacity>
+        </View>
       );
     }
   };
