@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { keys } from "./queryKeys";
 import { changeFollowingState } from "../services/user";
 import { auth } from "../../App";

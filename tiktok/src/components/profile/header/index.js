@@ -22,7 +22,9 @@ export default function ProfileHeader({ user }) {
   const handleLogOut = () => {
     dispatch(logout());
   };
-
+  const handleIsFollowingMutation = () => {
+    isFollowingMutation.mutate({ otherUserId: user.uid, isFollowing });
+  };
   const renderFollowButton = () => {
     if (isFollowing) {
       return (
@@ -37,9 +39,7 @@ export default function ProfileHeader({ user }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={buttonStyles.unfollowButton}
-            onPress={() =>
-              isFollowingMutation.mutate({ otherUserId: user.uid, isFollowing })
-            }
+            onPress={handleIsFollowingMutation}
           >
             <Feather
               name='user-check'
@@ -54,9 +54,7 @@ export default function ProfileHeader({ user }) {
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <TouchableOpacity
             style={buttonStyles.filledButton}
-            onPress={() =>
-              isFollowingMutation.mutate({ otherUserId: user.uid, isFollowing })
-            }
+            onPress={handleIsFollowingMutation}
           >
             <Text style={buttonStyles.filledButtonText}>Follow</Text>
           </TouchableOpacity>
