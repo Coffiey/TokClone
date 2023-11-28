@@ -11,8 +11,9 @@ export default function FeedScreen({ route }) {
   useEffect(() => {
     if (profile) {
       getPostsByUserId(creator).then(setPosts);
+    } else {
+      getFeed().then(setPosts);
     }
-    getFeed().then(setPosts);
   }, []);
 
   const mediaRefs = useRef([]);
