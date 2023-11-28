@@ -9,16 +9,16 @@ const ChatListItem = ({ chat }) => {
   const { data: userData } = useUser(
     chat.members[0] === auth.currentUser.uid ? chat.members[1] : chat.members[0]
   );
-  console.log(data);
+
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation("chatSingle", { chatId: chat.id })}
+      onPress={() => navigation.navigate("chatSingle", { chatId: chat.id })}
     >
       <Image
         style={styles.image}
-        source={{ uri: userData.photoUrl }}
+        source={{ uri: userData.photoURL }}
       />
       <View style={{ flex: 1 }}>
         <Text style={styles.userNameText}>{userData.displayName}</Text>

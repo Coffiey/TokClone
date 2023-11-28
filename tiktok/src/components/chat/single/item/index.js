@@ -5,9 +5,11 @@ import { useUser } from "../../../../hooks/useUser";
 import { auth } from "../../../../../App";
 
 const ChatSingleItem = ({ item }) => {
-  const { data: userData, isLoading } = useUser(item.creator);
-  if (isLoading) return <></>;
+  // const { data: userData, isLoading } = useUser(item.creator);
+  const obj = useUser(item.creator);
+  // if (isLoading) return <></>;
 
+  console.log(item.creator);
   const isCurrentUser = item.creator === auth.currentUser.uid;
   return (
     <View style={isCurrentUser ? styles.container : styles.containerOther}>
@@ -16,9 +18,9 @@ const ChatSingleItem = ({ item }) => {
         source={{ uri: user.photoURL }}
       />
       <View
-        style={isCurrentuser ? styles.containerText : styles.containerTextOther}
+        style={isCurrentUser ? styles.containerText : styles.containerTextOther}
       >
-        <Text style={styles.displayName}>{userData.displayName}</Text>
+        {/* <Text style={styles.displayName}>{userData.displayName}</Text> */}
         <Text>{item.message}</Text>
       </View>
     </View>

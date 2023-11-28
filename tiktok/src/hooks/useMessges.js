@@ -12,7 +12,9 @@ export const useMessages = (chatId, contactId) => {
   const handleMessagesChange = useCallback(
     (change) => {
       setMessages(
-        setChats(change.docs.map((item) => ({ id: item.id, ...item.data() })))
+        // setChats(
+        change.docs.map((item) => ({ id: item.id, ...item.data() }))
+        // )
       );
     },
     [dispatch]

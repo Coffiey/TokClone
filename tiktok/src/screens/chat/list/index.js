@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 const ChatScreen = () => {
   const chats = useSelector((state) => state.chat.list);
-
   const renderItem = ({ item }) => {
     return <ChatListItem chat={item} />;
   };

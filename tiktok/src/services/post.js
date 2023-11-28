@@ -96,7 +96,6 @@ export const clearCommentListner = () => {
 
 export const getPostsByUserId = (uid = auth.currentUser.uid) =>
   new Promise((resolve, reject) => {
-    console.log("getPostsByUserId", uid);
     const dataQuery = query(
       collection(firestore, "post"),
       where("creator", "==", uid),

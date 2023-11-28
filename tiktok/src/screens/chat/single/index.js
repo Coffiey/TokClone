@@ -15,11 +15,12 @@ const ChatSingleScreen = ({ route }) => {
 
   // const currentUser = useSelector((state) => state.auth.currentUser);
   const { messages, chatIdInstance } = useMessages(chatId, contactId);
+  console.log(chatIdInstance);
 
   const renderItem = ({ item }) => {
     return <ChatSingleItem item={item} />;
   };
-  const handleCommentSend = async () => {
+  const handleCommentSend = () => {
     if (message.length == 0) return;
     sendMessage(chatIdInstance, message);
     setMessage("");

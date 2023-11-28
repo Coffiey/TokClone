@@ -5,6 +5,7 @@ import {
   where,
   doc,
   setDoc,
+  addDoc,
   serverTimestamp,
   updateDoc,
   collection,
@@ -33,13 +34,13 @@ export const messageListener = (listener, chatId) => {
 };
 
 export const sendMessage = (chatId, message) => {
-  const docData = doc(collection(firestore, "chats", chatId, "messages"));
-  setDoc(docData, {
-    creator: auth.currentUser.ui,
+  const docData = collection(firestore, "chats", chatId, "messages");
+  addDoc(docData, {
+    creator: auth.currentUser.uid,
     message,
     creation: serverTimestamp(),
   });
-  const updateData = doc(collection(firestore, "chats", chatId));
+  const updateData = doc(firestore, "chats", chatId);
   updateDoc(updateData, {
     lastMessage: message,
     lastUpdate: serverTimestamp(),
