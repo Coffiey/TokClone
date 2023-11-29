@@ -11,32 +11,33 @@ export const useMessages = (chatId, contactId) => {
   const [chatIdInstance, setChatIdInstance] = useState(chatId);
   const handleMessagesChange = useCallback(
     (change) => {
-      setMessages(
-        // setChats(
-        change.docs.map((item) => ({ id: item.id, ...item.data() }))
-        // )
-      );
+      setMessages(change.docs.map((item) => ({ id: item.id, ...item.data() })));
     },
     [dispatch]
   );
 
   useEffect(() => {
     let listenerInstance;
-    if (!chatIdInstance) {
+    console.log("😂", chatId);
+    if (!chatId) {
       let chat = chats.find((item) =>
         item.members.some((member) => member === contactId)
       );
       if (chat) {
         //set chat instance
         setChatIdInstance(chat.id);
+        listenerInstance = messageListener(handleMessagesChange, chat.id);
       } else {
         //create chat instance
-        createChat(contactId).then((res) => setChatIdInstance(res.id));
+        createChat(contactId).then((res) => {
+          setChatIdInstance(res.id);
+          listenerInstance = messageListener(handleMessagesChange, res.id);
+        });
       }
-    }
-    if (currentUser && chatIdInstance) {
+    } else {
       listenerInstance = messageListener(handleMessagesChange, chatId);
     }
+
     return () => {
       listenerInstance && listenerInstance();
     };

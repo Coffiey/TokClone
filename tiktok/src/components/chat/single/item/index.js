@@ -5,11 +5,10 @@ import { useUser } from "../../../../hooks/useUser";
 import { auth } from "../../../../../App";
 
 const ChatSingleItem = ({ item }) => {
-  // const { data: userData, isLoading } = useUser(item.creator);
+  const { data: userData, isLoading } = useUser(item.creator);
   const obj = useUser(item.creator);
-  // if (isLoading) return <></>;
+  if (isLoading) return <></>;
 
-  console.log(item.creator);
   const isCurrentUser = item.creator === auth.currentUser.uid;
   return (
     <View style={isCurrentUser ? styles.container : styles.containerOther}>
