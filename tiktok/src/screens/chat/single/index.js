@@ -25,21 +25,16 @@ const ChatSingleScreen = ({ route }) => {
     setMessage("");
   };
 
-  // useEffect(() => {
-  //   console.log(messages.length);
-  //   if (messages) {
-  //     setTimeout(() => {
-  //       chatRef.current.scrollToEnd();
-  //     }, 100);
-  //   }
-  // }, [messages]);
+  useEffect(() => {
+    chatRef.current.scrollToOffset({ animated: true, y: 0 });
+  }, [messages]);
 
   return (
     <SafeAreaView style={styles.container}>
       <NavBarGeneral title='chat' />
       <FlatList
         inverted
-        // ref={chatRef}
+        ref={chatRef}
         data={messages}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}

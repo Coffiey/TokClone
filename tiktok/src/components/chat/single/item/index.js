@@ -16,6 +16,16 @@ const ChatSingleItem = ({ item }) => {
         source={{ uri: userData.photoURL }}
       />
       <View
+        style={
+          isCurrentUser ? styles.containerTabOver : styles.containerTabOverOther
+        }
+      ></View>
+      <View
+        style={
+          isCurrentUser ? styles.containerTabText : styles.containerTabTextOther
+        }
+      ></View>
+      <View
         style={isCurrentUser ? styles.containerText : styles.containerTextOther}
       >
         <Text>{item.message}</Text>
