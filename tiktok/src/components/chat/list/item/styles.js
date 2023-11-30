@@ -5,9 +5,18 @@ const styles = StyleSheet.create({
     padding: 14,
     flexDirection: "row",
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+
+    elevation: 1,
   },
   image: {
-    height: 60,
+    height: 40,
     aspectRatio: 1,
     borderRadius: 30,
     marginRight: 16,

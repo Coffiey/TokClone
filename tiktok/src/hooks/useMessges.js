@@ -18,7 +18,6 @@ export const useMessages = (chatId, contactId) => {
 
   useEffect(() => {
     let listenerInstance;
-    console.log("😂", chatId);
     if (!chatId) {
       let chat = chats.find((item) =>
         item.members.some((member) => member === contactId)

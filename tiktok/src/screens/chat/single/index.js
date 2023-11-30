@@ -1,5 +1,5 @@
 import { View, TextInput, TouchableOpacity, FlatList } from "react-native";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styles from "./styles";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,12 +12,10 @@ import { sendMessage } from "../../../services/chat";
 const ChatSingleScreen = ({ route }) => {
   const { chatId, contactId } = route.params;
   const [message, setMessage] = useState("");
+  const chatRef = useRef();
 
-  // const currentUser = useSelector((state) => state.auth.currentUser);
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const { messages, chatIdInstance } = useMessages(chatId, contactId);
-  const items = useMessages(chatId, contactId);
-  console.log("chatsinglescreen", items);
-
   const renderItem = ({ item }) => {
     return <ChatSingleItem item={item} />;
   };
@@ -26,10 +24,22 @@ const ChatSingleScreen = ({ route }) => {
     sendMessage(chatIdInstance, message);
     setMessage("");
   };
+
+  // useEffect(() => {
+  //   console.log(messages.length);
+  //   if (messages) {
+  //     setTimeout(() => {
+  //       chatRef.current.scrollToEnd();
+  //     }, 100);
+  //   }
+  // }, [messages]);
+
   return (
     <SafeAreaView style={styles.container}>
       <NavBarGeneral title='chat' />
       <FlatList
+        inverted
+        // ref={chatRef}
         data={messages}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}

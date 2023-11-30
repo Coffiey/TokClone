@@ -10,11 +10,9 @@ export default function FeedScreen({ route }) {
   const [countrySwitch, setCountrySwitch] = useState(true);
   useEffect(() => {
     if (profile) {
-      console.log("fired");
       // getPostsByUserId(creator).then(setPosts);
       getFeed().then(setPosts);
     } else {
-      console.log("fired");
       getFeed().then(setPosts);
     }
   }, []);

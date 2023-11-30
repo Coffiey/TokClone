@@ -23,7 +23,6 @@ export default function ProfileScreen({ route }) {
 
   useEffect(() => {
     if (user) {
-      console.log("from profile");
       getPostsByUserId(user.uid).then(setUserPosts);
     }
   }, [user]);

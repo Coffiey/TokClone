@@ -44,7 +44,6 @@ export default function PostSingleOverlay({
   }, []);
 
   const handleDisplayCountries = () => {
-    console.log(displayCountries);
     setCountrySwitch(displayCountries);
     setDisplayCountries(!displayCountries);
   };
