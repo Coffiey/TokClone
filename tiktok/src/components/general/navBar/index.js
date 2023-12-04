@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import styles from "./styles";
 import { Feather } from "@expo/vector-icons";
@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function NavBarGeneral({
   title = "navebarGeneral",
   leftButton = { display: true },
+  url = false,
 }) {
   const naviagation = useNavigation();
   return (
@@ -20,7 +21,15 @@ export default function NavBarGeneral({
           size={26}
         />
       </TouchableOpacity>
-      <Text style={styles.title}>{title}</Text>
+      <View style={styles.subContainer}>
+        {url && (
+          <Image
+            style={styles.avatar}
+            source={{ uri: url }}
+          />
+        )}
+        <Text style={styles.title}>{title}</Text>
+      </View>
       <TouchableOpacity
         style={styles.button}
         onPress={() => leftButton.display && leftButton.action()}

@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  subContainer: {
+    flexDirection: "row",
+  },
   button: {
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -13,6 +16,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "bold",
+    paddingHorizontal: 10,
+  },
+  avatar: {
+    height: 30,
+    aspectRatio: 1,
+    borderRadius: 25,
   },
 });
 

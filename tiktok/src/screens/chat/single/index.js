@@ -8,16 +8,25 @@ import { useMessages } from "../../../hooks/useMessges";
 import { SafeAreaView } from "react-native-safe-area-context";
 import NavBarGeneral from "../../../components/general/navBar";
 import { sendMessage } from "../../../services/chat";
+import { useUser } from "../../../hooks/useUser";
 
 const ChatSingleScreen = ({ route }) => {
-  const { chatId, contactId } = route.params;
+  const { chatId, contactId, userData } = route.params;
   const [message, setMessage] = useState("");
+
   const chatRef = useRef();
 
   const currentUser = useSelector((state) => state.auth.currentUser);
   const { messages, chatIdInstance } = useMessages(chatId, contactId);
+
+  console.log(typeof messages);
   const renderItem = ({ item }) => {
-    return <ChatSingleItem item={item} />;
+    return (
+      <ChatSingleItem
+        item={item}
+        messages={messages}
+      />
+    );
   };
   const handleCommentSend = () => {
     if (message.length == 0) return;
@@ -31,7 +40,10 @@ const ChatSingleScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <NavBarGeneral title='chat' />
+      <NavBarGeneral
+        title={userData.displayName}
+        url={userData.photoURL}
+      />
       <FlatList
         inverted
         ref={chatRef}

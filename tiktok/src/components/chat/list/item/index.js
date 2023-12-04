@@ -13,7 +13,9 @@ const ChatListItem = ({ chat }) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("chatSingle", { chatId: chat.id })}
+      onPress={() =>
+        navigation.navigate("chatSingle", { chatId: chat.id, userData })
+      }
     >
       {userData && (
         <>
