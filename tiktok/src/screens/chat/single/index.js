@@ -19,7 +19,6 @@ const ChatSingleScreen = ({ route }) => {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const { messages, chatIdInstance } = useMessages(chatId, contactId);
 
-  console.log(typeof messages);
   const renderItem = ({ item }) => {
     return (
       <ChatSingleItem

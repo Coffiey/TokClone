@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function NavBarGeneral({
   title = "navebarGeneral",
-  leftButton = { display: true },
+  leftButton = { display: true, action: () => console.log("pressed") },
   url = false,
 }) {
   const naviagation = useNavigation();
@@ -32,7 +32,8 @@ export default function NavBarGeneral({
       </View>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => leftButton.display && leftButton.action()}
+        disabled={leftButton.display}
+        onPress={() => leftButton.action()}
       >
         <Feather
           name={leftButton.name}
